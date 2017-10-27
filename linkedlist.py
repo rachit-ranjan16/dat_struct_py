@@ -15,11 +15,13 @@ class linkedList(object):
         self.head = head
 
     def insert_beginning(self, data):
+        """Insert a Node into start of Linked List"""
         n = Node(data)
         n.set_next(self.head)
         self.head = n # head moves as each new node is added
 
     def insert_end(self, data):
+        """Insert a Node at the end of the Linked List"""
         if self.head is None:
             head = Node(data)
             return
@@ -30,6 +32,7 @@ class linkedList(object):
 
 
     def insert_pos(self, data, pos):
+        """Insert a node at given position in the Linked List """
         n = Node(data)
         cur = self.head
 
@@ -50,6 +53,7 @@ class linkedList(object):
             cur.set_next(n)
 
     def print_elements(self):
+        """Print Elements of the Linked List"""
         cur = self.head
         i = 1
         while cur is not None:
@@ -58,6 +62,7 @@ class linkedList(object):
             i += 1
 
     def list_length(self):
+        """Return Length of the Linked List"""
         i = 0
         cur = self.head
         while cur.get_next() is not None:
@@ -66,6 +71,7 @@ class linkedList(object):
         return i
 
     def del_node(self, data):
+        """Delete a node with given data"""
         if self.head.get_data() == data:
             t = self.head
             self.head = self.head.get_next()
@@ -80,6 +86,7 @@ class linkedList(object):
             cur = cur.get_next()
 
     def is_length_even(self):
+        """Return True if the Linked List has even length"""
         if self.head is None:
             return True
         cur = self.head
