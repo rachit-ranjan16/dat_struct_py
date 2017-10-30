@@ -1,5 +1,6 @@
-from node import Node
-class linkedList(object):
+from blocks.node import SNode, DNode
+
+class sLinkedList(object):
     """	Singly Linked List
 			Without Dedicated Header Node
 		Operations Covered
@@ -16,24 +17,24 @@ class linkedList(object):
 
     def insert_beginning(self, data):
         """Insert a Node into start of Linked List"""
-        n = Node(data)
+        n = SNode(data)
         n.set_next(self.head)
         self.head = n # head moves as each new node is added
 
     def insert_end(self, data):
         """Insert a Node at the end of the Linked List"""
         if self.head is None:
-            head = Node(data)
+            head = SNode(data)
             return
         cur = self.head
         while cur.get_next() is not None:
             cur = cur.get_next()
-        cur.set_next(Node(data))
+        cur.set_next(SNode(data))
 
 
     def insert_pos(self, data, pos):
         """Insert a node at given position in the Linked List """
-        n = Node(data)
+        n = SNode(data)
         cur = self.head
 
         if pos > self.list_length() or pos < 0:
@@ -61,7 +62,7 @@ class linkedList(object):
             cur = cur.get_next()
             i += 1
 
-    def list_length(self):
+    def size(self):
         """Return Length of the Linked List"""
         i = 0
         cur = self.head
@@ -96,8 +97,109 @@ class linkedList(object):
                 return True
         return False
 
+class dLinkedList:
+    """	Doubly Linked List
+			Without Dedicated Header Node
+		Operations Covered
+			1. Creating a LinkedList by inserting elements
+				a. At the beginning
+				b. At the end
+				c. Any Position
+			2. Length
+			3. Print
+			4. Deleting a node carrying some value """
+    def __init__(self, head=None):
+        self.head = head
+
+    def size(self):
+        cur = self.head
+        c = 0
+        while cur is not None:
+            cur = cur.get_next()
+            c += 1
+        return c
+
+    def insert_beginning(self, data):
+        n = DNode(data)
+        n.set_next(self.head)
+        if self.head is not None:
+            self.head.set_prev(n)
+        self.head = n
+
+    def insert_end(self, data):
+        n = DNode(data)
+        cur = self.head
+        while cur.get_next() is not None:
+            cur = cur.get_next()
+        cur.set_next(n)
+        n.set_prev(cur)
+
+    def insert_pos(self, data, pos):
+        if pos > self.sizeDL() or pos < 0:
+            return 0
+        elif pos == 0:
+            self.insert_beg(data)
+        elif pos == self.sizeDL():
+            self.insert_end(data)
+        else:
+            n = DNode(data)
+            cur = self.head
+            c = 0
+            while c < pos - 1:
+                cur = cur.get_next()
+                c += 1
+            n.set_next(cur.get_next)
+            n.set_prev(cur)
+            cur.get_next().set_prev(n)
+            cur.set_next(n)
+
+    def del_node(self, value):
+        if self.head.get_data() == value:
+            self.head.get_next().set_prev(None)
+            self.head = self.head.get_next()
+        cur = self.head.get_next()
+        t = self.head
+        while cur is not None:
+            if cur.get_data() == value:
+                t.set_next(cur.get_next())
+                if cur.get_next() is not None:
+                    cur.get_next().set_prev(t)
+            t = cur
+            cur = cur.get_next()
+
+
+    def print_elements(self,forward=True):
+        cur = self.head
+        if forward:
+            while cur is not None:
+                tail = cur
+                print ('%r' % cur.get_data())
+                cur = cur.get_next()
+        else:
+            while tail is not None:
+                print('%r'  % tail.get_data())
+                tail = tail.get_prev()
+
+    def is_length_even(self):
+        """Return True if the Linked List has even length"""
+        if self.head is None:
+            return True
+        cur = self.head
+        while cur is not None and cur.get_next() is not None:
+            cur = cur.get_next().get_next()
+            if cur is None:
+                return True
+        return False
+
 if __name__ == "__main__":
-    l = linkedList()
+    print("Singly Linked List")
+    l = sLinkedList()
+    for i in range(5):
+        l.insert_beginning(i)
+    l.print_elements()
+    print(l.is_length_even())
+    print("Doubly Linked List")
+    l = dLinkedList()
     for i in range(5):
         l.insert_beginning(i)
     l.print_elements()
