@@ -8,10 +8,11 @@ class sLinkedList(object):
 				a. At the beginning
 				b. At the end
 				c. Any Position
-			2. Length
-			3. Print
-			4. Delete a node carrying some value
-            5. Quick check whether the list has even length"""
+			2. Delete a node carrying some value
+			3. Length
+			4. Print
+            5. Quick check whether the list has even length
+            6. Return element nth element from the end"""
 
     def __init__(self, head=None):
         self.head = head
@@ -53,24 +54,6 @@ class sLinkedList(object):
             n.set_next(cur.get_next())
             cur.set_next(n)
 
-    def print_elements(self):
-        """Print Elements of the Linked List"""
-        cur = self.head
-        i = 1
-        while cur is not None:
-            print ("%r" % cur.get_data())
-            cur = cur.get_next()
-            i += 1
-
-    def size(self):
-        """Return Length of the Linked List"""
-        i = 0
-        cur = self.head
-        while cur.get_next() is not None:
-            cur = cur.get_next()
-            i += 1
-        return i
-
     def del_node(self, data):
         """Delete a node with given data"""
         if self.head.get_data() == data:
@@ -86,6 +69,24 @@ class sLinkedList(object):
             t = cur
             cur = cur.get_next()
 
+    def size(self):
+        """Return Length of the Linked List"""
+        i = 0
+        cur = self.head
+        while cur.get_next() is not None:
+            cur = cur.get_next()
+            i += 1
+        return i
+
+    def print_elements(self):
+        """Print Elements of the Linked List"""
+        cur = self.head
+        i = 1
+        while cur is not None:
+            print ("%r" % cur.get_data())
+            cur = cur.get_next()
+            i += 1
+
     def is_length_even(self):
         """Return True if the Linked List has even length"""
         if self.head is None:
@@ -97,6 +98,22 @@ class sLinkedList(object):
                 return True
         return False
 
+    def from_the_end(self,n):
+        l = self.size();
+        if n > l :
+            print ('Nth position exceeds length of the list')
+            return False
+        cur = self.head
+        fast = cur
+        i = 0
+        while i < n:
+            fast = fast.get_next()
+            i += 1
+        while fast is not None:
+            cur = cur.get_next()
+            fast = fast.get_next()
+        return cur.get_data()
+
 
 class dLinkedList:
     """	Doubly Linked List
@@ -106,20 +123,13 @@ class dLinkedList:
 				a. At the beginning
 				b. At the end
 				c. Any Position
-			2. Length
-			3. Print
-			4. Delete a node carrying some value
-            5. Quick check whether the list has even length"""
+			2. Delete a node carrying some value
+			3. Size
+			4. Print
+            5. Quick check whether the list has even length
+            6. Return nth element from the end"""
     def __init__(self, head=None):
         self.head = head
-
-    def size(self):
-        cur = self.head
-        c = 0
-        while cur is not None:
-            cur = cur.get_next()
-            c += 1
-        return c
 
     def insert_beginning(self, data):
         n = DNode(data)
@@ -169,6 +179,14 @@ class dLinkedList:
             t = cur
             cur = cur.get_next()
 
+    def size(self):
+        cur = self.head
+        c = 0
+        while cur is not None:
+            cur = cur.get_next()
+            c += 1
+        return c
+
     def print_elements(self,forward=True):
         cur = self.head
         if forward:
@@ -192,6 +210,23 @@ class dLinkedList:
                 return True
         return False
 
+    def from_the_end(self,n):
+        l = self.size();
+        if n > l :
+            print ('Nth position exceeds length of the list')
+            return False
+        cur = self.head
+        fast = cur
+        i = 0
+        while i < n:
+            fast = fast.get_next()
+            i += 1
+        while fast is not None:
+            cur = cur.get_next()
+            fast = fast.get_next()
+        return cur.get_data()
+
+
 
 class cLinkedList(object):
     """	Circular Singly Linked List
@@ -201,10 +236,11 @@ class cLinkedList(object):
 				a. At the beginning
 				b. At the end
 				c. Any Position
-			2. Length
-			3. Print
-			4. Delete a node carrying some value
-            5. Quick check whether the list has even length"""
+			2. Delete a node carrying some value
+			3. Size
+			4. Print
+            5. Quick check whether the list has even length
+            6. Return nth element from the end"""
     def __init__(self, head=None):
         self.head = head
 
@@ -252,25 +288,6 @@ class cLinkedList(object):
             n.set_next(cur.get_next())
             cur.set_next(n)
 
-    def print_elements(self):
-        cur = self.head.get_next()
-        i = 1
-        print ('%d' % self.head.get_data())
-        while cur is not self.head:
-            i += 1
-            print ("%d" % cur.get_data())
-            cur = cur.get_next()
-
-    def size(self):
-        i = 1
-        if self.head is None:
-            return 0
-        cur = self.head
-        while cur.get_next() is not self.head:
-            i += 1
-            cur = cur.get_next()
-        return i
-
     def del_node(self, data):
         if self.head.get_data() == data:
             cur = self.head.get_next()
@@ -290,6 +307,25 @@ class cLinkedList(object):
                     t = cur
                     cur = cur.get_next()
 
+    def size(self):
+        i = 1
+        if self.head is None:
+            return 0
+        cur = self.head
+        while cur.get_next() is not self.head:
+            i += 1
+            cur = cur.get_next()
+        return i
+
+    def print_elements(self):
+        cur = self.head.get_next()
+        i = 1
+        print ('%d' % self.head.get_data())
+        while cur is not self.head:
+            i += 1
+            print ("%d" % cur.get_data())
+            cur = cur.get_next()
+
     def is_length_even(self):
         if self.head is None:
             return True
@@ -303,6 +339,27 @@ class cLinkedList(object):
         else:
             return False
 
+    def from_the_end(self,n):
+        l = self.size();
+        if n > l :
+            print ('Nth position exceeds length of the list')
+            return False
+        cur = self.head
+        fast = cur
+        i = 0
+        while i < n:
+            fast = fast.get_next()
+            i += 1
+        while fast != self.head:
+            cur = cur.get_next()
+            fast = fast.get_next()
+        return cur.get_data()
+
+
+
+
+
+
 if __name__ == "__main__":
     print("Singly Linked List")
     l = sLinkedList()
@@ -310,15 +367,18 @@ if __name__ == "__main__":
         l.insert_beginning(i)
     l.print_elements()
     print(l.is_length_even())
+    print( "Element no %d from the end: %d" % (2,l.from_the_end(2)))
     print("Doubly Linked List")
     l = dLinkedList()
     for i in range(5):
         l.insert_beginning(i)
     l.print_elements()
     print(l.is_length_even())
+    print( "Element no %d from the end: %d" % (2,l.from_the_end(2)))
     print("Circular Singly Linked List")
     l = cLinkedList()
     for i in range(4):
         l.insert_beginning(i)
     l.print_elements()
     print(l.is_length_even())
+    print( "Element no %d from the end: %d" % (3,l.from_the_end(3)))
