@@ -12,8 +12,8 @@ class sLinkedList(object):
 			3. Length
 			4. Print
             5. Quick check whether the list has even length
-            6. Return element nth element from the end"""
-
+            6. Return element nth element from the end
+            7. Quick check whether a cycle exists"""
     def __init__(self, head=None):
         self.head = head
 
@@ -70,7 +70,7 @@ class sLinkedList(object):
             cur = cur.get_next()
 
     def size(self):
-        """Return Length of the Linked List"""
+        """Return Number of elements in the Linked List"""
         i = 0
         cur = self.head
         while cur.get_next() is not None:
@@ -88,7 +88,7 @@ class sLinkedList(object):
             i += 1
 
     def is_length_even(self):
-        """Return True if the Linked List has even length"""
+        """Return True if the Linked List has even number of elements"""
         if self.head is None:
             return True
         cur = self.head
@@ -99,6 +99,7 @@ class sLinkedList(object):
         return False
 
     def from_the_end(self,n):
+        """Returns Node no n from the end of the LinkedList"""
         l = self.size();
         if n > l :
             print ('Nth position exceeds length of the list')
@@ -114,6 +115,21 @@ class sLinkedList(object):
             fast = fast.get_next()
         return cur.get_data()
 
+    def is_cyclic(self):
+        """Returns True if a Cycle is still present"""
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while (slow_ptr and fast_ptr):
+            fast_ptr = fast_ptr.get_next()
+            if fast_ptr == slow_ptr:
+                return True
+            if fast_ptr is None:
+                return False
+            fast_ptr = fast_ptr.get_next()
+            if fast_ptr == slow_ptr:
+                return True
+            slow_ptr = slow_ptr.get_next()
+
 
 class dLinkedList:
     """	Doubly Linked List
@@ -127,11 +143,13 @@ class dLinkedList:
 			3. Size
 			4. Print
             5. Quick check whether the list has even length
-            6. Return nth element from the end"""
+            6. Return nth element from the end
+            7. Quick check whether a cycle exists"""
     def __init__(self, head=None):
         self.head = head
 
     def insert_beginning(self, data):
+        """Insert a Node into start of Doubly Linked List"""
         n = DNode(data)
         n.set_next(self.head)
         if self.head is not None:
@@ -139,6 +157,7 @@ class dLinkedList:
         self.head = n
 
     def insert_end(self, data):
+        """Insert a Node into end of Doubly Linked List"""
         n = DNode(data)
         cur = self.head
         while cur.get_next() is not None:
@@ -147,6 +166,7 @@ class dLinkedList:
         n.set_prev(cur)
 
     def insert_pos(self, data, pos):
+        """Insert a node at given position in the Doubly Linked List"""
         if pos > self.sizeDL() or pos < 0:
             return 0
         elif pos == 0:
@@ -166,6 +186,7 @@ class dLinkedList:
             cur.set_next(n)
 
     def del_node(self, value):
+        """Delete a node with given data"""
         if self.head.get_data() == value:
             self.head.get_next().set_prev(None)
             self.head = self.head.get_next()
@@ -180,6 +201,7 @@ class dLinkedList:
             cur = cur.get_next()
 
     def size(self):
+        """Return the number of elements in Doubly LinkedList"""
         cur = self.head
         c = 0
         while cur is not None:
@@ -188,6 +210,7 @@ class dLinkedList:
         return c
 
     def print_elements(self,forward=True):
+        """Print Elements of the Doubly Linked List"""
         cur = self.head
         if forward:
             while cur is not None:
@@ -200,7 +223,7 @@ class dLinkedList:
                 tail = tail.get_prev()
 
     def is_length_even(self):
-        """Return True if the Linked List has even length"""
+        """Return True if the Doubly Linked List has even number of elements"""
         if self.head is None:
             return True
         cur = self.head
@@ -211,6 +234,7 @@ class dLinkedList:
         return False
 
     def from_the_end(self,n):
+        """Returns node number n from the end of the Doubly LinkedList"""
         l = self.size();
         if n > l :
             print ('Nth position exceeds length of the list')
@@ -226,6 +250,20 @@ class dLinkedList:
             fast = fast.get_next()
         return cur.get_data()
 
+    def is_cyclic(self):
+        """Returns True if a Cycle is still present"""
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while (slow_ptr and fast_ptr):
+            fast_ptr = fast_ptr.get_next()
+            if fast_ptr == slow_ptr:
+                return True
+            if fast_ptr is None:
+                return False
+            fast_ptr = fast_ptr.get_next()
+            if fast_ptr == slow_ptr:
+                return True
+            slow_ptr = slow_ptr.get_next()
 
 
 class cLinkedList(object):
@@ -240,11 +278,13 @@ class cLinkedList(object):
 			3. Size
 			4. Print
             5. Quick check whether the list has even length
-            6. Return nth element from the end"""
+            6. Return nth element from the end
+            7. Quick check whether a cycle exists"""
     def __init__(self, head=None):
         self.head = head
 
     def insert_beginning(self, data):
+        """Insert a Node into start of Circular Linked List"""
         n = SNode(data)
         n.set_next(n)
         if self.head is not None:
@@ -255,8 +295,8 @@ class cLinkedList(object):
             cur.set_next(n)
         self.head = n # head moves as each new node is added
 
-
     def insert_end(self, data):
+        """Insert a Node into end of Circular LinkedList"""
         n = SNode(data)
         n.set_next(n)
         if self.head is not None:
@@ -269,7 +309,7 @@ class cLinkedList(object):
             self.head = n
 
     def insert_pos(self, data, pos):
-        """Insert a node at given position in the Linked List """
+        """Insert a node at given position in the Circular LinkedList """
         n = SNode(data)
         cur = self.head
         if pos > self.size() or pos < 0:
@@ -289,6 +329,7 @@ class cLinkedList(object):
             cur.set_next(n)
 
     def del_node(self, data):
+        """Delete a node with given data"""
         if self.head.get_data() == data:
             cur = self.head.get_next()
             while cur.get_next() is not self.head:
@@ -308,6 +349,7 @@ class cLinkedList(object):
                     cur = cur.get_next()
 
     def size(self):
+        """Return the Number of elements in the Circular LinkedList"""
         i = 1
         if self.head is None:
             return 0
@@ -318,6 +360,7 @@ class cLinkedList(object):
         return i
 
     def print_elements(self):
+        """Print Elements of the Doubly Linked List"""
         cur = self.head.get_next()
         i = 1
         print ('%d' % self.head.get_data())
@@ -327,6 +370,7 @@ class cLinkedList(object):
             cur = cur.get_next()
 
     def is_length_even(self):
+        """Return True if the Doubly Linked List has even number of elements"""
         if self.head is None:
             return True
         cur = self.head
@@ -340,6 +384,7 @@ class cLinkedList(object):
             return False
 
     def from_the_end(self,n):
+        """Returns Node no n from the end of the LinkedList"""
         l = self.size();
         if n > l :
             print ('Nth position exceeds length of the list')
@@ -355,9 +400,20 @@ class cLinkedList(object):
             fast = fast.get_next()
         return cur.get_data()
 
-
-
-
+    def is_cyclic(self):
+        """Returns True if a Cycle is still present"""
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while (slow_ptr and fast_ptr):
+            fast_ptr = fast_ptr.get_next()
+            if fast_ptr == slow_ptr:
+                return True
+            if fast_ptr is None:
+                return False
+            fast_ptr = fast_ptr.get_next()
+            if fast_ptr == slow_ptr:
+                return True
+            slow_ptr = slow_ptr.get_next()
 
 
 if __name__ == "__main__":
@@ -368,6 +424,7 @@ if __name__ == "__main__":
     l.print_elements()
     print(l.is_length_even())
     print( "Element no %d from the end: %d" % (2,l.from_the_end(2)))
+    print("Cyclicity: %r" % l.is_cyclic())
     print("Doubly Linked List")
     l = dLinkedList()
     for i in range(5):
@@ -375,6 +432,7 @@ if __name__ == "__main__":
     l.print_elements()
     print(l.is_length_even())
     print( "Element no %d from the end: %d" % (2,l.from_the_end(2)))
+    print("Cyclicity: %r" % l.is_cyclic())
     print("Circular Singly Linked List")
     l = cLinkedList()
     for i in range(4):
@@ -382,3 +440,4 @@ if __name__ == "__main__":
     l.print_elements()
     print(l.is_length_even())
     print( "Element no %d from the end: %d" % (3,l.from_the_end(3)))
+    print("Cyclicity: %r" % l.is_cyclic())
