@@ -13,7 +13,8 @@ class sLinkedList(object):
 			4. Print
             5. Quick check whether the list has even length
             6. Return element nth element from the end
-            7. Quick check whether a cycle exists"""
+            7. Quick check whether a cycle exists
+            8. Return cycle length(if one exsits)"""
     def __init__(self, head=None):
         self.head = head
 
@@ -130,6 +131,22 @@ class sLinkedList(object):
                 return True
             slow_ptr = slow_ptr.get_next()
 
+    def cycle_length(self):
+        """Returns length of cycle(if one exists) using the fast pointer technique"""
+        if self.head is None or self.head.get_next() is None:
+            return 0
+        if not self.is_cyclic(): return 0
+        slow = self.head
+        fast = self.head.get_next()
+        len1 = 1
+        while slow != fast:
+            len1 += 1
+            slow = slow.get_next()
+            if fast.get_next().get_next() is None:
+                return 0
+            fast = fast.get_next().get_next()
+        return len1
+
 
 class dLinkedList:
     """	Doubly Linked List
@@ -144,7 +161,8 @@ class dLinkedList:
 			4. Print
             5. Quick check whether the list has even length
             6. Return nth element from the end
-            7. Quick check whether a cycle exists"""
+            7. Quick check whether a cycle exists
+            8. Return cycle length(if one exsits)"""
     def __init__(self, head=None):
         self.head = head
 
@@ -265,6 +283,22 @@ class dLinkedList:
                 return True
             slow_ptr = slow_ptr.get_next()
 
+    def cycle_length(self):
+        """Returns length of cycle(if one exists) using the fast pointer technique"""
+        if self.head is None or self.head.get_next() is None:
+            return 0
+        if not self.is_cyclic(): return 0
+        slow = self.head
+        fast = self.head.get_next()
+        len1 = 1
+        while slow != fast:
+            len1 += 1
+            slow = slow.get_next()
+            if fast.get_next().get_next() is None:
+                return 0
+            fast = fast.get_next().get_next()
+        return len1
+
 
 class cLinkedList(object):
     """	Circular Singly Linked List
@@ -279,7 +313,8 @@ class cLinkedList(object):
 			4. Print
             5. Quick check whether the list has even length
             6. Return nth element from the end
-            7. Quick check whether a cycle exists"""
+            7. Quick check whether a cycle exists
+            8. Return cycle length(if one exsits)"""
     def __init__(self, head=None):
         self.head = head
 
@@ -415,6 +450,22 @@ class cLinkedList(object):
                 return True
             slow_ptr = slow_ptr.get_next()
 
+    def cycle_length(self):
+        """Returns length of cycle(if one exists) using the fast pointer technique"""
+        if self.head is None or self.head.get_next() is None:
+            return 0
+        if not self.is_cyclic(): return 0
+        slow = self.head
+        fast = self.head.get_next()
+        len1 = 1
+        while slow != fast:
+            len1 += 1
+            slow = slow.get_next()
+            if fast.get_next().get_next() is None:
+                return 0
+            fast = fast.get_next().get_next()
+        return len1
+
 
 if __name__ == "__main__":
     print("Singly Linked List")
@@ -425,6 +476,7 @@ if __name__ == "__main__":
     print(l.is_length_even())
     print( "Element no %d from the end: %d" % (2,l.from_the_end(2)))
     print("Cyclicity: %r" % l.is_cyclic())
+    print("Cycle Length: %r" % l.cycle_length())
     print("Doubly Linked List")
     l = dLinkedList()
     for i in range(5):
@@ -433,6 +485,7 @@ if __name__ == "__main__":
     print(l.is_length_even())
     print( "Element no %d from the end: %d" % (2,l.from_the_end(2)))
     print("Cyclicity: %r" % l.is_cyclic())
+    print("Cycle Length: %r" % l.cycle_length())
     print("Circular Singly Linked List")
     l = cLinkedList()
     for i in range(4):
@@ -441,3 +494,4 @@ if __name__ == "__main__":
     print(l.is_length_even())
     print( "Element no %d from the end: %d" % (3,l.from_the_end(3)))
     print("Cyclicity: %r" % l.is_cyclic())
+    print("Cycle Length: %r" % l.cycle_length())
