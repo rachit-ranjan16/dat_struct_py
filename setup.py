@@ -1,11 +1,29 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+
+ver = "9.9.9"
+with open("README", mode='r') as f:
+    long_description = f.read()
+
+with open("Makefile", mode='r') as f:
+    ver = f.read().split('\n')[0].split('=')[1][1:]
 
 setup(
    name='dat_struct_py',
-   version='1.0',
+   version=ver,
+   url='https://github.com/rachit-ranjan16/dat_struct_py',
    description='Basic Data Structures and Operations Implemented in Python',
+   long_description=long_description,
+   licence='GNU',
    author='rachit-ranjan16',
    author_email='rachit.ranjan93@gmail.com',
-   packages=['dat_struct_py'],  #same as name
+   classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Topic :: Data Structures :: Basic Data Structures and Operations',
+        'License :: OSI Approved :: GNU License',
+        'Programming Language :: Python :: 3.5',
+        ],
+   keywords='data structures operations',
+   packages=['dat_struct_py'],  # same as name
    install_requires=[],
 )
