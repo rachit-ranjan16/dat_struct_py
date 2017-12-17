@@ -13,7 +13,7 @@ setup(
    url='https://github.com/rachit-ranjan16/dat_struct_py',
    description='Basic Data Structures and Operations Implemented in Python',
    long_description=long_description,
-   licence='GNU',
+   license='GNU',
    author='rachit-ranjan16',
    author_email='rachit.ranjan93@gmail.com',
    classifiers=[
