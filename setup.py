@@ -24,7 +24,7 @@ setup(
        "Programming Language :: Python :: 3.5",
        ],
    keywords='data structures operations',
-   packages=[],  # same as name
+   packages=[dat_struct_py],  # same as name
    install_requires=[],
    python_requires='~=3.5'
 )
