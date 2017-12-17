@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 ver = "9.9.9"
-with open("README", mode='r') as f:
+with open("README.md", mode='r') as f:
     long_description = f.read()
 
 with open("Makefile", mode='r') as f:
@@ -17,13 +17,14 @@ setup(
    author='rachit-ranjan16',
    author_email='rachit.ranjan93@gmail.com',
    classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Stable',
         'Intended Audience :: Developers',
         'Topic :: Data Structures :: Basic Data Structures and Operations',
         'License :: OSI Approved :: GNU License',
         'Programming Language :: Python :: 3.5',
         ],
    keywords='data structures operations',
-   packages=['dat_struct_py'],  # same as name
+   packages=[],  # same as name
    install_requires=[],
+   python_requires='~=3.5'
 )
