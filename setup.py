@@ -17,12 +17,12 @@ setup(
    author='rachit-ranjan16',
    author_email='rachit.ranjan93@gmail.com',
    classifiers=[
-        'Development Status :: 5 - Stable',
-        'Intended Audience :: Developers',
-        'Topic :: Data Structures :: Basic Data Structures and Operations',
-        'License :: OSI Approved :: GNU License',
-        'Programming Language :: Python :: 3.5',
-        ],
+       "Development Status :: 5 - Production/Stable",
+       "Intended Audience :: Developers",
+       "Topic :: Software Development",
+       "License :: OSI Approved :: GNU General Public License (GPL)",
+       "Programming Language :: Python :: 3.5",
+       ],
    keywords='data structures operations',
    packages=[],  # same as name
    install_requires=[],
