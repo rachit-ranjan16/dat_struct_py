@@ -1,5 +1,7 @@
-from blocks.node import SNode, DNode
-
+from .blocks.node import SNode, DNode
+#Comment above and Uncomment below for local testing using __main__
+#from blocks.node import SNode, DNode
+#TODO Include unit tests to get rid of __main__ verification 
 class sLinkedList(object):
     """	Singly Linked List
 			Without Dedicated Header Node
