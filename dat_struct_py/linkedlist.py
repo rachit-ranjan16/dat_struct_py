@@ -1,7 +1,5 @@
 from .blocks.node import SNode, DNode
-#Comment above and Uncomment below for local testing using __main__
-#from blocks.node import SNode, DNode
-#TODO Include unit tests to get rid of __main__ verification 
+
 class sLinkedList(object):
     """	Singly Linked List
 			Without Dedicated Header Node
@@ -29,7 +27,7 @@ class sLinkedList(object):
     def insert_end(self, data):
         """Insert a Node at the end of the Linked List"""
         if self.head is None:
-            head = SNode(data)
+            self.head = SNode(data)
             return
         cur = self.head
         while cur.get_next() is not None:
@@ -74,12 +72,12 @@ class sLinkedList(object):
 
     def size(self):
         """Return Number of elements in the Linked List"""
-        i = 0
         cur = self.head
-        while cur.get_next() is not None:
+        c = 0
+        while cur is not None:
             cur = cur.get_next()
-            i += 1
-        return i
+            c += 1
+        return c
 
     def print_elements(self):
         """Print Elements of the Linked List"""
@@ -178,6 +176,9 @@ class dLinkedList:
 
     def insert_end(self, data):
         """Insert a Node into end of Doubly Linked List"""
+        if not self.head:
+            self.head = DNode(data)
+            return
         n = DNode(data)
         cur = self.head
         while cur.get_next() is not None:
