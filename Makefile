@@ -1,6 +1,4 @@
-VERSION = 1.0.0
-#HOST=127.0.0.1
-#TEST_PATH=./
+VERSION = 1.1.0
 
 build:
 	python setup.py sdist --format=gztar
@@ -9,5 +7,10 @@ clean:
 	rm -rf dist/
 	rm -rf build/
 	rm -rf *.egg-info 
-
+	rm -rf dat_struct_py/__pycache__
+	rm -rf .coverage
+	rm -rf htmlcov 
+test:
+	coverage run setup.py test
+	coverage html 
 
