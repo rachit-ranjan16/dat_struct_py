@@ -42,6 +42,25 @@ class testLinkedLists(unittest.TestCase):
         self.sLL.del_node(3)
         self.assertEqual(self.sLL.size(), 3)
 
+    def testSinglyLLRevInPlace(self):
+        self.sLL.rev_in_place(self)
+        self.assertEqual(self.sLL.size(), _data(), 1)
+        cur = self.sLL.head
+        while not cur.get_next():
+                cur = cur.get_next()
+        self.assertEqual(cur.get_data(), 5)
+
+    def testSinglyLLSwapPairs(self):
+        self.assertEqual(self.sLL.swap_pairs(), None)
+        self.sLL.insert_beginning(6)
+        self.assertEqual(self.sLL.head.get_data(), 5)
+        self.assertEqual(self.sLL.head.get_next().get_data(), 6)
+        while not cur.get_next().get_next():
+                cur = cur.get_next()
+        self.assertEqual(cur.get_data(), 1)
+        self.assertEqual(cur.get_next().get_data(), 2)
+        self.assertEqual(self.sLL.head.get_data(), 1) 
+
     def testDoublyLLInsertFromBeginning(self):
         self.assertEqual(self.dLL.head.get_data(),5)
         self.assertEqual(self.dLL.size(), 5)
