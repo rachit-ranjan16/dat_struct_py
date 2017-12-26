@@ -14,7 +14,9 @@ class sLinkedList(object):
             5. Quick check whether the list has even length
             6. Return element nth element from the end
             7. Quick check whether a cycle exists
-            8. Return cycle length(if one exsits)"""
+            8. Return cycle length(if one exsits)
+            9. Reverse in Place
+            10. Swap Pairs - Works only for Even length linkedlist"""
     def __init__(self, head=None):
         self.head = head
 
@@ -146,6 +148,35 @@ class sLinkedList(object):
                 return 0
             fast = fast.get_next().get_next()
         return len1
+
+    def rev_in_place(self):
+        """Reverses linkedlist in place""""
+        last = None
+        cur = self.head
+        while cur is not None:
+            nxt = cur.get_next()
+            cur.set_next(last)
+            last = cur
+            cur = nxt
+        self.head = last
+
+    def swap_pairs(self):
+        """Swaps liked list nodes in pairs in place
+            Works only for even length LinkedLists
+            Returns True if swap pairs is successful and False Otherwise """
+        if ll.head is None:
+            print ('Empty List')
+            return False
+        if not is_length_even(ll):
+            print ('Need an Even Length Linked List for this')
+            return False
+        cur = ll.head
+        while cur is not None and cur.get_next() is not None:
+            t = cur.get_data()
+            cur.set_data(cur.get_next().get_data())
+            cur.get_next().set_data(t)
+            cur = cur.get_next().get_next()
+        return True
 
 
 class dLinkedList:
@@ -468,33 +499,3 @@ class cLinkedList(object):
                 return 0
             fast = fast.get_next().get_next()
         return len1
-
-
-if __name__ == "__main__":
-    print("Singly Linked List")
-    l = sLinkedList()
-    for i in range(5):
-        l.insert_beginning(i)
-    l.print_elements()
-    print(l.is_length_even())
-    print( "Element no %d from the end: %d" % (2,l.from_the_end(2)))
-    print("Cyclicity: %r" % l.is_cyclic())
-    print("Cycle Length: %r" % l.cycle_length())
-    print("Doubly Linked List")
-    l = dLinkedList()
-    for i in range(5):
-        l.insert_beginning(i)
-    l.print_elements()
-    print(l.is_length_even())
-    print( "Element no %d from the end: %d" % (2,l.from_the_end(2)))
-    print("Cyclicity: %r" % l.is_cyclic())
-    print("Cycle Length: %r" % l.cycle_length())
-    print("Circular Singly Linked List")
-    l = cLinkedList()
-    for i in range(4):
-        l.insert_beginning(i)
-    l.print_elements()
-    print(l.is_length_even())
-    print( "Element no %d from the end: %d" % (3,l.from_the_end(3)))
-    print("Cyclicity: %r" % l.is_cyclic())
-    print("Cycle Length: %r" % l.cycle_length())
