@@ -36,3 +36,6 @@ class DNode:
 
     def set_prev(self, node):
         self.prev_node = node
+
+    def set_data(self, data):
+        self.data = data
