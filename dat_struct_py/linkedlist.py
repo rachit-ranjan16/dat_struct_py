@@ -4,7 +4,7 @@ class sLinkedList(object):
     """	Singly Linked List
 			Without Dedicated Header Node
 		Operations Covered
-			1. Creating a LinkedList by inserting elements
+			1. Creating a LinkedList by inserting elements (one by one or through input list)
 				a. At the beginning
 				b. At the end
 				c. Any Position
@@ -17,8 +17,15 @@ class sLinkedList(object):
             8. Return cycle length(if one exsits)
             9. Reverse in Place
             10. Swap Pairs - Works only for Even length linkedlist"""
-    def __init__(self, head=None):
+    def __init__(self, head=None, inp_list=[], insertEnd=True):
+        """Initializes LinkedList.
+        Supports inserts through passed optional input list from both beginning and end"""
         self.head = head
+        if len(inp_list) != 0:
+            if insertEnd:
+                for ele in inp_list: self.insert_end(ele)
+            else:
+                for ele in inp_list: self.insert_beginning(ele)
 
     def insert_beginning(self, data):
         """Insert a Node into start of Linked List"""
@@ -181,7 +188,7 @@ class dLinkedList:
     """	Doubly Linked List
 			Without Dedicated Header Node
 		Operations Covered
-			1. Creating a LinkedList by inserting elements
+			1. Creating a LinkedList by inserting elements (one by one or through input list)
 				a. At the beginning
 				b. At the end
 				c. Any Position
@@ -194,8 +201,15 @@ class dLinkedList:
             8. Return cycle length(if one exsits)
             9. Reverse in Place
             10. Swap Pairs - Works only for Even length linkedlist"""
-    def __init__(self, head=None):
+    def __init__(self, head=None, inp_list=[], insertEnd=True):
+        """Initializes  Doubly LinkedList
+        Supports inserts through passed optional input list from both beginning and end"""
         self.head = head
+        if len(inp_list) != 0:
+            if insertEnd:
+                for ele in inp_list: self.insert_end(ele)
+            else:
+                for ele in inp_list: self.insert_beginning(ele)
 
     def insert_beginning(self, data):
         """Insert a Node into start of Doubly Linked List"""
@@ -262,7 +276,7 @@ class dLinkedList:
         return c
 
     def print_elements(self,forward=True):
-        """Print Elements of the Doubly Linked List"""
+        """Print Elements of the Doubly Linked List Backward and forward"""
         cur = self.head
         if forward:
             while cur is not None:
@@ -367,7 +381,7 @@ class cLinkedList(object):
     """	Circular Singly Linked List
 			Without Dedicated Header Node
 		Operations Covered
-			1. Creating a LinkedList by inserting elements
+			1. Creating a LinkedList by inserting elements (one by one or through input list)
 				a. At the beginning
 				b. At the end
 				c. Any Position
@@ -377,9 +391,16 @@ class cLinkedList(object):
             5. Quick check whether the list has even length
             6. Return nth element from the end
             7. Quick check whether a cycle exists
-            8. Return cycle length(if one exsits)"""
-    def __init__(self, head=None):
+            8. Return cycle length(if one exists)"""
+    def __init__(self, head=None, inp_list=[], insertEnd=True):
+        """Initializes Singly Circularly LinkedList
+        Supports inserts through passed optional input list from both beginning and end"""
         self.head = head
+        if len(inp_list) != 0:
+            if insertEnd:
+                for ele in inp_list: self.insert_end(ele)
+            else:
+                for ele in inp_list: self.insert_beginning(ele)
 
     def insert_beginning(self, data):
         """Insert a Node into start of Circular Linked List"""
@@ -460,10 +481,8 @@ class cLinkedList(object):
     def print_elements(self):
         """Print Elements of the Doubly Linked List"""
         cur = self.head.get_next()
-        i = 1
         print ('%d' % self.head.get_data())
         while cur is not self.head:
-            i += 1
             print ("%d" % cur.get_data())
             cur = cur.get_next()
 
