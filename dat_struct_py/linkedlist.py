@@ -84,11 +84,9 @@ class sLinkedList(object):
     def print_elements(self):
         """Print Elements of the Linked List"""
         cur = self.head
-        i = 1
         while cur is not None:
             print ("%r" % cur.get_data())
             cur = cur.get_next()
-            i += 1
 
     def is_length_even(self):
         """Return True if the Linked List has even number of elements"""
@@ -150,7 +148,7 @@ class sLinkedList(object):
         return len1
 
     def rev_in_place(self):
-        """Reverses linkedlist in place""""
+        """Reverses linkedlist in place"""
         last = None
         cur = self.head
         while cur is not None:
@@ -164,13 +162,13 @@ class sLinkedList(object):
         """Swaps liked list nodes in pairs in place
             Works only for even length LinkedLists
             Returns True if swap pairs is successful and False Otherwise """
-        if ll.head is None:
+        if self.head is None:
             print ('Empty List')
             return False
-        if not is_length_even(ll):
+        if not self.is_length_even():
             print ('Need an Even Length Linked List for this')
             return False
-        cur = ll.head
+        cur = self.head
         while cur is not None and cur.get_next() is not None:
             t = cur.get_data()
             cur.set_data(cur.get_next().get_data())
@@ -193,7 +191,9 @@ class dLinkedList:
             5. Quick check whether the list has even length
             6. Return nth element from the end
             7. Quick check whether a cycle exists
-            8. Return cycle length(if one exsits)"""
+            8. Return cycle length(if one exsits)
+            9. Reverse in Place
+            10. Swap Pairs - Works only for Even length linkedlist"""
     def __init__(self, head=None):
         self.head = head
 
@@ -332,6 +332,35 @@ class dLinkedList:
                 return 0
             fast = fast.get_next().get_next()
         return len1
+
+    def rev_in_place(self):
+        """Reverses linkedlist in place"""
+        last = None
+        cur = self.head
+        while cur is not None:
+            nxt = cur.get_next()
+            cur.set_next(last)
+            last = cur
+            cur = nxt
+        self.head = last
+
+    def swap_pairs(self):
+        """Swaps liked list nodes in pairs in place
+            Works only for even length LinkedLists
+            Returns True if swap pairs is successful and False Otherwise """
+        if self.head is None:
+            print ('Empty List')
+            return False
+        if not self.is_length_even():
+            print ('Need an Even Length Linked List for this')
+            return False
+        cur = self.head
+        while cur is not None and cur.get_next() is not None:
+            t = cur.get_data()
+            cur.set_data(cur.get_next().get_data())
+            cur.get_next().set_data(t)
+            cur = cur.get_next().get_next()
+        return True
 
 
 class cLinkedList(object):
