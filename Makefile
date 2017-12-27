@@ -1,4 +1,4 @@
-VERSION = 1.1.1
+VERSION = 1.1.2
 
 build:
 	python setup.py sdist --format=gztar
@@ -8,6 +8,8 @@ clean:
 	rm -rf build/
 	rm -rf *.egg-info
 	rm -rf dat_struct_py/__pycache__
+	rm -rf dat_struct_py/blocks/__pycache__
+	rm -rf dat_struct_py/tests/__pycache__
 	rm -rf .coverage
 	rm -rf htmlcov
 test:
