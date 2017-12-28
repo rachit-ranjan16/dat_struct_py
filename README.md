@@ -2,7 +2,7 @@
 Basic Data Structures and Operations Implemented in Python
 ## Installation Instructions
 - Python 3.5 is currently supported
-- Install from PyPI using 
+- Install from PyPI using
    - pip install dat_struct_py
 
 ## Supported Data Structures
@@ -22,7 +22,5 @@ Basic Data Structures and Operations Implemented in Python
   - Return nth element from the end
   - Quick check whether a cycle exists
   - Return cycle length(if one exists)
-
-### Extra Support Operations for Singly and Doubly Linked Lists
   - Reverse in Place
   - Swap Pairs - Works only for Even length linked list

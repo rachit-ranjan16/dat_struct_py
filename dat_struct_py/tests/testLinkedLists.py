@@ -213,5 +213,27 @@ class testLinkedLists(unittest.TestCase):
         self.cLL.del_node(3)
         self.assertEqual(self.cLL.size(), 3)
 
+    def testCircularlyLLRevInPlace(self):
+        self.cLL.rev_in_place()
+        self.assertEqual(self.cLL.head.get_data(), 1)
+        cur = self.cLL.head
+        self.assertEqual(self.cLL.size(), 5)
+        while cur.get_next() != self.cLL.head:
+                cur = cur.get_next()
+        self.assertEqual(cur.get_data(), 5)
+
+    def testCircularlyLLSwapPairs(self):
+        self.assertEqual(cLinkedList().swap_pairs(), False)
+        self.cLL.insert_beginning(6)
+        self.assertEqual(self.cLL.swap_pairs(), True)
+        self.assertEqual(self.cLL.head.get_data(), 5)
+        self.assertEqual(self.cLL.head.get_next().get_data(), 6)
+        cur = self.cLL.head
+        while cur.get_next().get_next() != self.cLL.head:
+                cur = cur.get_next()
+        self.assertEqual(cur.get_data(), 1)
+        self.assertEqual(cur.get_next().get_data(), 2)
+        self.assertEqual(self.sLL.head.get_data(), 5)
+
 if __name__ == "__main__":
     unittest.main()

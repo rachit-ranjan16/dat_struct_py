@@ -1,4 +1,4 @@
-VERSION = 1.1.2
+VERSION = 1.1.3
 
 build:
 	python setup.py sdist --format=gztar
