@@ -547,3 +547,17 @@ class cLinkedList(object):
                 return 0
             fast = fast.get_next().get_next()
         return len1
+
+    def rev_in_place(self):
+        """Reverses linkedlist in place"""
+        last = None
+        cur = self.head
+        while cur.get_next() != self.head:
+            nxt = cur.get_next()
+            cur.set_next(last)
+            last = cur
+            cur = nxt
+        nxt = cur.get_next()
+        cur.set_next(last)
+        nxt.set_next(cur)
+        self.head = cur
