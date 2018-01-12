@@ -42,6 +42,11 @@ class testStacks(unittest.TestCase):
     def testBalancedWithStack(self):
         sym_stack = lStack(25)
         self.assertEqual(sym_stack.symbols_balanced('[]'), True)
+        sym_stack = lStack(25)
         self.assertEqual(sym_stack.symbols_balanced('[({{()}})]'), True)
+        sym_stack = lStack(25)
         self.assertEqual(sym_stack.symbols_balanced('[{)]]]]}]'), False)
+        sym_stack = lStack(25)
         self.assertEqual(sym_stack.symbols_balanced('[({{()}}]'), False)
+        sym_stack = lStack(25)
+        self.assertEqual(sym_stack.symbols_balanced(']'), False)
