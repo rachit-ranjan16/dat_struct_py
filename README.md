@@ -12,10 +12,10 @@ Basic Data Structures and Operations Implemented in Python
  - Stack using Linked List
 
 ### Operations Supported for Linked Lists
-  - Create a linked list through input sequence
-  - At the beginning
-  - At the end
-  - Any Position
+  - Create a linked list through input sequence or inserts
+    - At the beginning
+    - At the end
+    - At any Position
   - Delete a node carrying some value
   - Size
   - Print
@@ -27,7 +27,10 @@ Basic Data Structures and Operations Implemented in Python
   - Swap Pairs - Works only for Even length linked list
 
 ### Operations Supported for Stacks
-  - Push
-  - Pop
-  - Peek
-  - Create Stack by pushing input sequence 
+  - Create a stack by pushing elements one by one or through an input sequence
+  - Check whether the stack is empty
+  - Check whether the stack is full
+  - Push an element
+  - Pop an element
+  - Peek the top element
+  - Check balanced symbols

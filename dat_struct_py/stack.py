@@ -3,12 +3,12 @@ from .blocks.node import SNode
 class lStack(object):
     """Stack using a Singly Linked List
             Operations Covered
-                1. Create a stack by pushing elements one by one or thorugh an input sequence
+                1. Create a stack by pushing elements one by one or through an input sequence
                 2. Check whether the stack is empty
                 3. Check whether the stack is full
                 4. Push an element
                 5. Pop an element
-                6. Peek the top element in the Stack
+                6. Peek the top element
                 7. Check balanced paranthesis"""
     def __init__(self, limit=10, inp_list=[]):
         """Initialize Stack.
