@@ -9,12 +9,13 @@ Basic Data Structures and Operations Implemented in Python
  - Singly Linked List
  - Doubly Linked List
  - Circularly Singly Linked List  
+ - Stack using Linked List
 
-### Common Operations Supported for Linked Lists
-  - Creating a Linked List by inserting elements
-  - At the beginning
-  - At the end
-  - Any Position
+### Operations Supported for Linked Lists
+  - Create a linked list through input sequence or inserts
+    - At the beginning
+    - At the end
+    - At any Position
   - Delete a node carrying some value
   - Size
   - Print
@@ -24,3 +25,12 @@ Basic Data Structures and Operations Implemented in Python
   - Return cycle length(if one exists)
   - Reverse in Place
   - Swap Pairs - Works only for Even length linked list
+
+### Operations Supported for Stacks
+  - Create a stack by pushing elements one by one or through an input sequence
+  - Check whether the stack is empty
+  - Check whether the stack is full
+  - Push an element
+  - Pop an element
+  - Peek the top element
+  - Check balanced symbols
