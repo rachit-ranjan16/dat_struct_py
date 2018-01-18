@@ -10,15 +10,15 @@ class lStack(object):
                 5. Pop an element
                 6. Peek the top element
                 7. Check balanced paranthesis"""
-    def __init__(self, limit=10, inp_list=[]):
+    def __init__(self, limit=25, inp=[]):
         """Initialize Stack.
             Supports Optional
                 1. Stack limit
                 2. Pushes thorugh passed input sequence"""
         self.head = None
         self.limit = limit
-        if len(inp_list) != 0:
-            for i in inp_list:
+        if len(inp) != 0:
+            for i in inp:
                 self.push(i)
 
     def __size(self):
@@ -48,6 +48,7 @@ class lStack(object):
             return False
 
     def push(self, data):
+        # TODO Add Implementation to push through an input list
         """Push an element into the stack if not Full"""
         if self.isFull():
             print ('OverFlow')
@@ -88,7 +89,6 @@ class lStack(object):
 
     def symbols_balanced(self, expr):
         """Returns True if the passed symbols(brackets) are sequentially balanced, False otherwise"""
-        balanced = False
         for symbol in expr:
             if symbol in ('[', '{', '('):
                 self.push(symbol)
@@ -99,6 +99,23 @@ class lStack(object):
                     st_top_sym = self.pop()
                 if not self.__sym_match(st_top_sym, symbol):
                     return False
-                else:
-                    balanced = True
-        return balanced
+        return True
+
+    def flush(self):
+        """Empties the stack"""
+        while self.isEmpty() is False:
+            self.pop()
+
+    def filter_adj_rec_ele(self):
+        """Filters out all the adjacent duplicate elements in the stack"""
+        out = ''
+        while self.isEmpty() is False:
+            out += self.pop()
+        out = out[::-1]
+        for i in out:
+            if self.isEmpty():
+                self.push(i)
+            elif self.peek() == i:
+                self.pop()
+            else:
+                self.push(i)
