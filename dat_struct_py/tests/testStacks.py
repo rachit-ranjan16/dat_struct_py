@@ -65,13 +65,6 @@ class testStacks(unittest.TestCase):
         self.assertEqual(self.stack.isEmpty(), False)
 
     def testFilterAdjRecurringElements(self):
-        self.stack = lStack(inp="mississippi")
-        self.assertEqual(self.stack.isEmpty(), False)
-        self.stack.filter_adj_rec_ele()
-        self.assertEqual(self.stack.pop(), 'm')
-        self.stack = lStack(inp="Rachit")
-        self.stack.filter_adj_rec_ele()
-        self.assertEqual(self.stack.pop(), 't')
-        self.stack = lStack(inp="Raachitt")
-        self.stack.filter_adj_rec_ele()
-        self.assertEqual(self.stack.pop(), 'i')
+        self.assertEqual(self.stack.filter_adj_rec_ele('mississippi'), 'm')
+        self.assertEqual(self.stack.filter_adj_rec_ele('Rachitt'), 'Rachi')
+        self.assertEqual(self.stack.filter_adj_rec_ele('Rachittt'), 'Rachit')
