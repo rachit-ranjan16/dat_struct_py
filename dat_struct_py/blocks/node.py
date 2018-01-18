@@ -1,4 +1,4 @@
-class SNode(object):
+class sNode(object):
 
     def __init__(self, data=None, next_node=None):
         self.data = data
@@ -16,7 +16,7 @@ class SNode(object):
     def set_data(self, data):
         self.data = data
 
-class DNode:
+class dNode:
     def __init__(self, data=None, next_node=None, prev_node=None):
         self.data = data
         self.next_node = next_node

@@ -1,4 +1,4 @@
-from .blocks.node import SNode, DNode
+from .blocks.node import sNode, dNode
 
 class sLinkedList(object):
     """	Singly Linked List
@@ -29,23 +29,23 @@ class sLinkedList(object):
 
     def insert_beginning(self, data):
         """Insert a Node into start of Linked List"""
-        n = SNode(data)
+        n = sNode(data)
         n.set_next(self.head)
         self.head = n # head moves as each new node is added
 
     def insert_end(self, data):
         """Insert a Node at the end of the Linked List"""
         if self.head is None:
-            self.head = SNode(data)
+            self.head = sNode(data)
             return
         cur = self.head
         while cur.get_next() is not None:
             cur = cur.get_next()
-        cur.set_next(SNode(data))
+        cur.set_next(sNode(data))
 
     def insert_pos(self, data, pos):
         """Insert a node at given position in the Linked List """
-        n = SNode(data)
+        n = sNode(data)
         cur = self.head
 
         if pos > self.size() or pos < 0:
@@ -213,7 +213,7 @@ class dLinkedList:
 
     def insert_beginning(self, data):
         """Insert a Node into start of Doubly Linked List"""
-        n = DNode(data)
+        n = dNode(data)
         n.set_next(self.head)
         if self.head is not None:
             self.head.set_prev(n)
@@ -222,9 +222,9 @@ class dLinkedList:
     def insert_end(self, data):
         """Insert a Node into end of Doubly Linked List"""
         if not self.head:
-            self.head = DNode(data)
+            self.head = dNode(data)
             return
-        n = DNode(data)
+        n = dNode(data)
         cur = self.head
         while cur.get_next() is not None:
             cur = cur.get_next()
@@ -240,7 +240,7 @@ class dLinkedList:
         elif pos == self.sizeDL():
             self.insert_end(data)
         else:
-            n = DNode(data)
+            n = dNode(data)
             cur = self.head
             c = 0
             while c < pos - 1:
@@ -404,7 +404,7 @@ class cLinkedList(object):
 
     def insert_beginning(self, data):
         """Insert a Node into start of Circular Linked List"""
-        n = SNode(data)
+        n = sNode(data)
         n.set_next(n)
         if self.head is not None:
             cur = self.head
@@ -416,7 +416,7 @@ class cLinkedList(object):
 
     def insert_end(self, data):
         """Insert a Node into end of Circular LinkedList"""
-        n = SNode(data)
+        n = sNode(data)
         n.set_next(n)
         if self.head is not None:
             cur = self.head
@@ -429,7 +429,7 @@ class cLinkedList(object):
 
     def insert_pos(self, data, pos):
         """Insert a node at given position in the Circular LinkedList """
-        n = SNode(data)
+        n = sNode(data)
         cur = self.head
         if pos > self.size() or pos < 0:
             return None

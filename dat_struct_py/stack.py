@@ -1,4 +1,4 @@
-from .blocks.node import SNode
+from .blocks.node import sNode
 
 class lStack(object):
     """Stack using a Singly Linked List
@@ -9,7 +9,8 @@ class lStack(object):
                 4. Push an element
                 5. Pop an element
                 6. Peek the top element
-                7. Check balanced paranthesis"""
+                7. Check balanced paranthesis
+                8. Remove adjacent recurring elements from input"""
     def __init__(self, limit=25, inp=[]):
         """Initialize Stack.
             Supports Optional
@@ -53,7 +54,7 @@ class lStack(object):
         if self.isFull():
             print ('OverFlow')
         else:
-            t = SNode()
+            t = sNode()
             t.set_data(data)
             t.set_next(self.head)
             self.head = t
@@ -98,7 +99,9 @@ class lStack(object):
                 else:
                     st_top_sym = self.pop()
                 if not self.__sym_match(st_top_sym, symbol):
+                    self.flush()
                     return False
+        self.flush()
         return True
 
     def flush(self):
@@ -106,16 +109,17 @@ class lStack(object):
         while self.isEmpty() is False:
             self.pop()
 
-    def filter_adj_rec_ele(self):
+    def filter_adj_rec_ele(self, inp):
         """Filters out all the adjacent duplicate elements in the stack"""
-        out = ''
-        while self.isEmpty() is False:
-            out += self.pop()
-        out = out[::-1]
-        for i in out:
+
+        for i in inp:
             if self.isEmpty():
                 self.push(i)
             elif self.peek() == i:
                 self.pop()
             else:
                 self.push(i)
+        out = ''
+        while self.isEmpty() is False:
+            out += self.pop()
+        return out[::-1]
