@@ -4,11 +4,11 @@ from ..stack import lStack
 class testStacks(unittest.TestCase):
 
     def setUp(self):
-        self.stack = lStack()
+        self.stack = lStack(10)
 
     def testStackCreationWithInputListAndLimit(self):
         inp_list = [x+1 for x in range(5)]
-        another_stack = lStack(limit=6,inp_list=inp_list)
+        another_stack = lStack(limit=6,inp=inp_list)
         self.assertEqual(another_stack.isFull(), False)
         self.assertEqual(another_stack.isEmpty(), False)
         self.assertEqual(another_stack.peek(), 5)
@@ -40,13 +40,38 @@ class testStacks(unittest.TestCase):
         self.assertIsNone(self.stack.peek())
 
     def testBalancedWithStack(self):
-        sym_stack = lStack(25)
+        sym_stack = lStack()
         self.assertEqual(sym_stack.symbols_balanced('[]'), True)
-        sym_stack = lStack(25)
+        sym_stack.flush()
         self.assertEqual(sym_stack.symbols_balanced('[({{()}})]'), True)
-        sym_stack = lStack(25)
+        sym_stack.flush()
         self.assertEqual(sym_stack.symbols_balanced('[{)]]]]}]'), False)
-        sym_stack = lStack(25)
+        sym_stack.flush()
         self.assertEqual(sym_stack.symbols_balanced('[({{()}}]'), False)
-        sym_stack = lStack(25)
-        self.assertEqual(sym_stack.symbols_balanced(']'), False)
+        sym_stack.flush()
+        self.assertEqual(sym_stack.symbols_balanced('{}]'), False)
+        sym_stack.flush()
+        self.assertEqual(sym_stack.symbols_balanced('abc'), False)
+
+    def testFlush(self):
+        self.assertIsNone(lStack(inp="something").flush())
+        self.assertIsNone(lStack().flush())
+        self.stack.push(5)
+        self.stack.push(5)
+        self.assertEqual(self.stack.isEmpty(), False)
+        self.assertIsNone(self.stack.flush())
+        self.assertEqual(self.stack.isEmpty(), True)
+        self.stack.push(4)
+        self.assertEqual(self.stack.isEmpty(), False)
+
+    def testFilterAdjRecurringElements(self):
+        self.stack = lStack(inp="mississippi")
+        self.assertEqual(self.stack.isEmpty(), False)
+        self.stack.filter_adj_rec_ele()
+        self.assertEqual(self.stack.pop(), 'm')
+        self.stack = lStack(inp="Rachit")
+        self.stack.filter_adj_rec_ele()
+        self.assertEqual(self.stack.pop(), 't')
+        self.stack = lStack(inp="Raachitt")
+        self.stack.filter_adj_rec_ele()
+        self.assertEqual(self.stack.pop(), 'i')
