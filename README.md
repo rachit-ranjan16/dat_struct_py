@@ -34,3 +34,16 @@ Basic Data Structures and Operations Implemented in Python
   - Pop an element
   - Peek the top element
   - Check balanced symbols
+
+## Developer Tools
+- Full Fledged Vagrant Box in tools/DevelopDatStructPy
+  - Prerequisites
+    - [VirtualBox Installation](https://www.virtualbox.org/wiki/Downloads)
+    - [Vagrant Installation](https://www.vagrantup.com/downloads.html)
+- Navigate to tools/DevelopDatStructPy
+- Modify bootstrap.sh to contain your git username and email **MANDATORY**
+- Open Terminal/Command prompt
+- Execute **vagrant up** to bring up the VM
+- Execute **vagrant ssh** to login to the VM
+- Master Code will be present at `home/ubuntu/Development/Repos/`
+- Execute **source /home/ubuntu/Development/developEnv/bin/activate** to activate Python Virtual Environment
