@@ -41,9 +41,9 @@ Basic Data Structures and Operations Implemented in Python
     - [VirtualBox Installation](https://www.virtualbox.org/wiki/Downloads)
     - [Vagrant Installation](https://www.vagrantup.com/downloads.html)
 - Navigate to tools/DevelopDatStructPy
-- Modify bootstrap.sh to contain your git username and email **MANDATORY**
+- Modify bootstrap.sh to contain your git username and email (**MANDATORY STEP**)
 - Open Terminal/Command prompt
-- Execute **vagrant up** to bring up the VM
-- Execute **vagrant ssh** to login to the VM
+- Execute `vagrant up` to bring up the VM
+- Execute `vagrant ssh` to login to the VM
 - Master Code will be present at `home/ubuntu/Development/Repos/`
-- Execute **source /home/ubuntu/Development/developEnv/bin/activate** to activate Python Virtual Environment
+- Execute `source /home/ubuntu/Development/developEnv/bin/activate` to activate Python Virtual Environment
