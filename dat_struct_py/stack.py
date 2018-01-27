@@ -10,7 +10,8 @@ class lStack(object):
                 5. Pop an element
                 6. Peek the top element
                 7. Check balanced paranthesis
-                8. Remove adjacent recurring elements from input"""
+                8. Flush
+                9. Remove adjacent recurring elements from input"""
     def __init__(self, limit=25, inp=[]):
         """Initialize Stack.
             Supports Optional
@@ -49,7 +50,6 @@ class lStack(object):
             return False
 
     def push(self, data):
-        # TODO Add Implementation to push through an input list
         """Push an element into the stack if not Full"""
         if self.isFull():
             print ('OverFlow')
@@ -110,8 +110,7 @@ class lStack(object):
             self.pop()
 
     def filter_adj_rec_ele(self, inp):
-        """Filters out all the adjacent duplicate elements in the stack"""
-
+        """Filters out all the adjacent duplicate elements from the input"""
         for i in inp:
             if self.isEmpty():
                 self.push(i)

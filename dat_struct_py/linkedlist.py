@@ -47,7 +47,6 @@ class sLinkedList(object):
         """Insert a node at given position in the Linked List """
         n = sNode(data)
         cur = self.head
-
         if pos > self.size() or pos < 0:
             return None
         elif pos == self.size():
