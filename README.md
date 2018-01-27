@@ -10,6 +10,7 @@ Basic Data Structures and Operations Implemented in Python
  - Doubly Linked List
  - Circularly Singly Linked List  
  - Stack using Linked List
+ - Queue using Linked List
 
 ### Operations Supported for Linked Lists
   - Create a linked list through input sequence or inserts
@@ -34,6 +35,15 @@ Basic Data Structures and Operations Implemented in Python
   - Pop an element
   - Peek the top element
   - Check balanced symbols
+  - Filter out all adjacent elements from the input
+  - Print the elements of the Queue 
+
+### Operations Supported for Stacks
+  - Create a queue by queuing elements one by one or through an input sequence
+  - Check whether the Queue is empty
+  - Enqueue an element
+  - Dequeue an element
+  -
 
 ## Developer Tools
 - Full Fledged Vagrant Box in tools/DevelopDatStructPy
