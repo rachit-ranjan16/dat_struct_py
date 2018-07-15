@@ -56,10 +56,8 @@ class sLinkedList(object):
         else:
             i = 0
             while i < pos - 1:
-                print (i)
                 cur = cur.get_next()
                 i += 1
-
             n.set_next(cur.get_next())
             cur.set_next(n)
 
@@ -144,14 +142,14 @@ class sLinkedList(object):
         if not self.is_cyclic(): return 0
         slow = self.head
         fast = self.head.get_next()
-        len1 = 1
+        l = 1
         while slow != fast:
-            len1 += 1
+            l += 1
             slow = slow.get_next()
             if fast.get_next().get_next() is None:
                 return 0
             fast = fast.get_next().get_next()
-        return len1
+        return l
 
     def rev_in_place(self):
         """Reverses linkedlist in place"""
@@ -232,11 +230,11 @@ class dLinkedList:
 
     def insert_pos(self, data, pos):
         """Insert a node at given position in the Doubly Linked List"""
-        if pos > self.sizeDL() or pos < 0:
+        if pos > self.size() or pos < 0:
             return 0
         elif pos == 0:
-            self.insert_beg(data)
-        elif pos == self.sizeDL():
+            self.insert_beginning(data)
+        elif pos == self.size():
             self.insert_end(data)
         else:
             n = dNode(data)
