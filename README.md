@@ -38,12 +38,12 @@ Basic Data Structures and Operations Implemented in Python
   - Filter out all adjacent elements from the input
   - Print the elements of the Queue 
 
-### Operations Supported for Stacks
+### Operations Supported for Queues
   - Create a queue by queuing elements one by one or through an input sequence
   - Check whether the Queue is empty
   - Enqueue an element
   - Dequeue an element
-  -
+
 
 ## Developer Tools
 - Full Fledged Vagrant Box in tools/DevelopDatStructPy
