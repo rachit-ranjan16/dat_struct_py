@@ -105,7 +105,7 @@ class sLinkedList(object):
 
     def from_the_end(self,n):
         """Returns Node no n from the end of the LinkedList"""
-        l = self.size();
+        l = self.size()
         if n > l :
             print ('Nth position exceeds length of the list')
             return False
@@ -298,7 +298,7 @@ class dLinkedList:
 
     def from_the_end(self,n):
         """Returns node number n from the end of the Doubly LinkedList"""
-        l = self.size();
+        l = self.size()
         if n > l :
             print ('Nth position exceeds length of the list')
             return False
@@ -499,7 +499,7 @@ class cLinkedList(object):
 
     def from_the_end(self,n):
         """Returns Node no n from the end of the LinkedList"""
-        l = self.size();
+        l = self.size()
         if n > l :
             print ('Nth position exceeds length of the list')
             return False
