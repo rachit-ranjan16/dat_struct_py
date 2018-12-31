@@ -1,11 +1,8 @@
 from setuptools import setup, find_packages
 
-ver = "9.9.9"
+ver = "1.4.1"
 with open("README.md", mode='r') as f:
     long_description = f.read()
-
-with open("Makefile", mode='r') as f:
-    ver = f.read().split('\n')[0].split('=')[1][1:]
 
 setup(
     name='dat_struct_py',
