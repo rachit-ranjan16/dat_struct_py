@@ -1,9 +1,9 @@
-# dat_struct_py
+# dat-struct-py
 Basic Data Structures and Operations Implemented in Python
 ## Installation Instructions
 - Python 3.5 is currently supported
 - Install from PyPI using
-   - pip install dat_struct_py
+   - pip install dat-struct-py
 
 ## Supported Data Structures
  - Singly Linked List

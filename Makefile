@@ -1,6 +1,7 @@
 
 build:
 	python setup.py sdist --format=gztar
+	twine upload dist/*
 	# python setup.py bdist_wheel
 clean:
 	rm -rf dist/

@@ -5,7 +5,7 @@ with open("README.md", mode='r') as f:
     long_description = f.read()
 
 setup(
-    name='dat_struct_py',
+    name='dat-struct-py',
     version=ver,
     url='https://github.com/rachit-ranjan16/dat_struct_py',description='Basic Data Structures and Operations Implemented in Python',
     long_description=long_description,
