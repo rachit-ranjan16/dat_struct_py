@@ -30,7 +30,7 @@ class sLinkedList(object):
     def insert_beginning(self, data):
         """Insert a Node into start of Linked List"""
         n = sNode(data)
-        n.set_next(self.head)
+        n.next = self.head
         self.head = n # head moves as each new node is added
 
     def insert_end(self, data):
@@ -39,9 +39,9 @@ class sLinkedList(object):
             self.head = sNode(data)
             return
         cur = self.head
-        while cur.get_next() is not None:
-            cur = cur.get_next()
-        cur.set_next(sNode(data))
+        while cur.next is not None:
+            cur = cur.next
+        cur.next = sNode(data)
 
     def insert_pos(self, data, pos):
         """Insert a node at given position in the Linked List """
@@ -56,32 +56,32 @@ class sLinkedList(object):
         else:
             i = 0
             while i < pos - 1:
-                cur = cur.get_next()
+                cur = cur.next
                 i += 1
-            n.set_next(cur.get_next())
-            cur.set_next(n)
+            n.next = cur.next
+            cur.next = n
 
     def del_node(self, data):
         """Delete a node with given data"""
-        if self.head.get_data() == data:
+        if self.head.data == data:
             t = self.head
-            self.head = self.head.get_next()
+            self.head = self.head.next
             # Python Garbage collection works on a Reference Map.
             # As soon as all references to a member die,it is automatically garbage collected
-        cur = self.head.get_next()
+        cur = self.head.next
         t = self.head
         while cur is not None:
-            if cur.get_data() == data:
-                t.set_next(cur.get_next())
+            if cur.data == data:
+                t.next = cur.next
             t = cur
-            cur = cur.get_next()
+            cur = cur.next
 
     def size(self):
         """Return Number of elements in the Linked List"""
         cur = self.head
         c = 0
         while cur is not None:
-            cur = cur.get_next()
+            cur = cur.next
             c += 1
         return c
 
@@ -89,16 +89,16 @@ class sLinkedList(object):
         """Print Elements of the Linked List"""
         cur = self.head
         while cur is not None:
-            print ("%r" % cur.get_data())
-            cur = cur.get_next()
+            print ("%r" % cur.data)
+            cur = cur.next
 
     def is_length_even(self):
         """Return True if the Linked List has even number of elements"""
         if self.head is None:
             return True
         cur = self.head
-        while cur is not None and cur.get_next() is not None:
-            cur = cur.get_next().get_next()
+        while cur is not None and cur.next is not None:
+            cur = cur.next.next
             if cur is None:
                 return True
         return False
@@ -113,42 +113,42 @@ class sLinkedList(object):
         fast = cur
         i = 0
         while i < n:
-            fast = fast.get_next()
+            fast = fast.next
             i += 1
         while fast is not None:
-            cur = cur.get_next()
-            fast = fast.get_next()
-        return cur.get_data()
+            cur = cur.next
+            fast = fast.next
+        return cur.data
 
     def is_cyclic(self):
         """Returns True if a Cycle is still present"""
         slow_ptr = self.head
         fast_ptr = self.head
         while (slow_ptr and fast_ptr):
-            fast_ptr = fast_ptr.get_next()
+            fast_ptr = fast_ptr.next
             if fast_ptr == slow_ptr:
                 return True
             if fast_ptr is None:
                 return False
-            fast_ptr = fast_ptr.get_next()
+            fast_ptr = fast_ptr.next
             if fast_ptr == slow_ptr:
                 return True
-            slow_ptr = slow_ptr.get_next()
+            slow_ptr = slow_ptr.next
 
     def cycle_length(self):
         """Returns length of cycle(if one exists) using the fast pointer technique"""
-        if self.head is None or self.head.get_next() is None:
+        if self.head is None or self.head.next is None:
             return 0
         if not self.is_cyclic(): return 0
         slow = self.head
-        fast = self.head.get_next()
+        fast = self.head.next
         l = 1
         while slow != fast:
             l += 1
-            slow = slow.get_next()
-            if fast.get_next().get_next() is None:
+            slow = slow.next
+            if fast.next.next is None:
                 return 0
-            fast = fast.get_next().get_next()
+            fast = fast.next.next
         return l
 
     def rev_in_place(self):
@@ -156,8 +156,8 @@ class sLinkedList(object):
         last = None
         cur = self.head
         while cur is not None:
-            nxt = cur.get_next()
-            cur.set_next(last)
+            nxt = cur.next
+            cur.next = last
             last = cur
             cur = nxt
         self.head = last
@@ -173,11 +173,11 @@ class sLinkedList(object):
             print ('Need an Even Length Linked List for this')
             return False
         cur = self.head
-        while cur is not None and cur.get_next() is not None:
-            t = cur.get_data()
-            cur.set_data(cur.get_next().get_data())
-            cur.get_next().set_data(t)
-            cur = cur.get_next().get_next()
+        while cur is not None and cur.next is not None:
+            t = cur.data
+            cur.data = cur.next.data
+            cur.next.data = t
+            cur = cur.next.next
         return True
 
 
@@ -211,9 +211,9 @@ class dLinkedList:
     def insert_beginning(self, data):
         """Insert a Node into start of Doubly Linked List"""
         n = dNode(data)
-        n.set_next(self.head)
+        n.next = self.head
         if self.head is not None:
-            self.head.set_prev(n)
+            self.head.prev = n
         self.head = n
 
     def insert_end(self, data):
@@ -223,10 +223,10 @@ class dLinkedList:
             return
         n = dNode(data)
         cur = self.head
-        while cur.get_next() is not None:
-            cur = cur.get_next()
-        cur.set_next(n)
-        n.set_prev(cur)
+        while cur.next is not None:
+            cur = cur.next
+        cur.next = n
+        n.prev = cur
 
     def insert_pos(self, data, pos):
         """Insert a node at given position in the Doubly Linked List"""
@@ -241,34 +241,34 @@ class dLinkedList:
             cur = self.head
             c = 0
             while c < pos - 1:
-                cur = cur.get_next()
+                cur = cur.next
                 c += 1
-            n.set_next(cur.get_next)
-            n.set_prev(cur)
-            cur.get_next().set_prev(n)
-            cur.set_next(n)
+            n.next = cur.get_next
+            n.prev = cur
+            cur.next.prev = n
+            cur.next = n
 
     def del_node(self, value):
         """Delete a node with given data"""
-        if self.head.get_data() == value:
-            self.head.get_next().set_prev(None)
-            self.head = self.head.get_next()
-        cur = self.head.get_next()
+        if self.head.data == value:
+            self.head.next.prev = None
+            self.head = self.head.next
+        cur = self.head.next
         t = self.head
         while cur is not None:
-            if cur.get_data() == value:
-                t.set_next(cur.get_next())
-                if cur.get_next() is not None:
-                    cur.get_next().set_prev(t)
+            if cur.data == value:
+                t.next = cur.next
+                if cur.next is not None:
+                    cur.next.prev = t
             t = cur
-            cur = cur.get_next()
+            cur = cur.next
 
     def size(self):
         """Return the number of elements in Doubly LinkedList"""
         cur = self.head
         c = 0
         while cur is not None:
-            cur = cur.get_next()
+            cur = cur.next
             c += 1
         return c
 
@@ -278,20 +278,20 @@ class dLinkedList:
         if forward:
             while cur is not None:
                 tail = cur
-                print ('%r' % cur.get_data())
-                cur = cur.get_next()
+                print ('%r' % cur.data)
+                cur = cur.next
         else:
             while tail is not None:
-                print('%r' % tail.get_data())
-                tail = tail.get_prev()
+                print('%r' % tail.data)
+                tail = tail.prev
 
     def is_length_even(self):
         """Return True if the Doubly Linked List has even number of elements"""
         if self.head is None:
             return True
         cur = self.head
-        while cur is not None and cur.get_next() is not None:
-            cur = cur.get_next().get_next()
+        while cur is not None and cur.next is not None:
+            cur = cur.next.next
             if cur is None:
                 return True
         return False
@@ -306,42 +306,42 @@ class dLinkedList:
         fast = cur
         i = 0
         while i < n:
-            fast = fast.get_next()
+            fast = fast.next
             i += 1
         while fast is not None:
-            cur = cur.get_next()
-            fast = fast.get_next()
-        return cur.get_data()
+            cur = cur.next
+            fast = fast.next
+        return cur.data
 
     def is_cyclic(self):
         """Returns True if a Cycle is still present"""
         slow_ptr = self.head
         fast_ptr = self.head
         while (slow_ptr and fast_ptr):
-            fast_ptr = fast_ptr.get_next()
+            fast_ptr = fast_ptr.next
             if fast_ptr == slow_ptr:
                 return True
             if fast_ptr is None:
                 return False
-            fast_ptr = fast_ptr.get_next()
+            fast_ptr = fast_ptr.next
             if fast_ptr == slow_ptr:
                 return True
-            slow_ptr = slow_ptr.get_next()
+            slow_ptr = slow_ptr.next
 
     def cycle_length(self):
         """Returns length of cycle(if one exists) using the fast pointer technique"""
-        if self.head is None or self.head.get_next() is None:
+        if self.head is None or self.head.next is None:
             return 0
         if not self.is_cyclic(): return 0
         slow = self.head
-        fast = self.head.get_next()
+        fast = self.head.next
         len1 = 1
         while slow != fast:
             len1 += 1
-            slow = slow.get_next()
-            if fast.get_next().get_next() is None:
+            slow = slow.next
+            if fast.next.next is None:
                 return 0
-            fast = fast.get_next().get_next()
+            fast = fast.next.next
         return len1
 
     def rev_in_place(self):
@@ -349,8 +349,8 @@ class dLinkedList:
         last = None
         cur = self.head
         while cur is not None:
-            nxt = cur.get_next()
-            cur.set_next(last)
+            nxt = cur.next
+            cur.next = last
             last = cur
             cur = nxt
         self.head = last
@@ -366,11 +366,9 @@ class dLinkedList:
             print ('Need an Even Length Linked List for this')
             return False
         cur = self.head
-        while cur is not None and cur.get_next() is not None:
-            t = cur.get_data()
-            cur.set_data(cur.get_next().get_data())
-            cur.get_next().set_data(t)
-            cur = cur.get_next().get_next()
+        while cur is not None and cur.next is not None:
+            cur.data, cur.next.data = cur.next.data, cur.data
+            cur = cur.next.next
         return True
 
 
@@ -402,25 +400,25 @@ class cLinkedList(object):
     def insert_beginning(self, data):
         """Insert a Node into start of Circular Linked List"""
         n = sNode(data)
-        n.set_next(n)
+        n.next = n
         if self.head is not None:
             cur = self.head
-            while cur.get_next() != self.head:
-                cur = cur.get_next()
-            n.set_next(self.head)
-            cur.set_next(n)
+            while cur.next != self.head:
+                cur = cur.next
+            n.next = self.head
+            cur.next = n
         self.head = n # head moves as each new node is added
 
     def insert_end(self, data):
         """Insert a Node into end of Circular LinkedList"""
         n = sNode(data)
-        n.set_next(n)
+        n.next = n
         if self.head is not None:
             cur = self.head
-            while cur.get_next() != self.head:
-                cur = cur.get_next()
-            cur.set_next(n)
-            n.set_next(self.head)
+            while cur.next != self.head:
+                cur = cur.next
+            cur.next = n
+            n.next = self.head
         else:
             self.head = n
 
@@ -438,31 +436,31 @@ class cLinkedList(object):
             i = 0
             while i < pos - 1:
                 print (i)
-                cur = cur.get_next()
+                cur = cur.next
                 i += 1
 
-            n.set_next(cur.get_next())
-            cur.set_next(n)
+            n.next = cur.next
+            cur.next = n
 
     def del_node(self, data):
         """Delete a node with given data"""
-        if self.head.get_data() == data:
-            cur = self.head.get_next()
-            while cur.get_next() is not self.head:
-                cur = cur.get_next()
-            cur.set_next(self.head.get_next())
-            self.head = self.head.get_next()
+        if self.head.data == data:
+            cur = self.head.next
+            while cur.next is not self.head:
+                cur = cur.next
+            cur.next = self.head.next
+            self.head = self.head.next
         else:
-            cur = self.head.get_next()
+            cur = self.head.next
             t = self.head
-            while cur.get_next() is not self.head:
-                if cur.get_data() == data:
-                    t.set_next(cur.get_next())
-                    cur.set_next(None)
-                    cur = t.get_next()
+            while cur.next is not self.head:
+                if cur.data == data:
+                    t.next = cur.next
+                    cur.next = None
+                    cur = t.next
                 else:
                     t = cur
-                    cur = cur.get_next()
+                    cur = cur.next
 
     def size(self):
         """Return the Number of elements in the Circular LinkedList"""
@@ -470,18 +468,18 @@ class cLinkedList(object):
         if self.head is None:
             return 0
         cur = self.head
-        while cur.get_next() is not self.head:
+        while cur.next is not self.head:
             i += 1
-            cur = cur.get_next()
+            cur = cur.next
         return i
 
     def print_elements(self):
         """Print Elements of the Doubly Linked List"""
-        cur = self.head.get_next()
-        print ('%d' % self.head.get_data())
+        cur = self.head.next
+        print ('%d' % self.head.data)
         while cur is not self.head:
-            print ("%d" % cur.get_data())
-            cur = cur.get_next()
+            print ("%d" % cur.data)
+            cur = cur.next
 
     def is_length_even(self):
         """Return True if the Doubly Linked List has even number of elements"""
@@ -489,8 +487,8 @@ class cLinkedList(object):
             return True
         cur = self.head
         i = -1
-        while cur.get_next() != self.head:
-            cur = cur.get_next()
+        while cur.next != self.head:
+            cur = cur.next
             i += 1
         if i%2 == 0:
             return True
@@ -507,56 +505,56 @@ class cLinkedList(object):
         fast = cur
         i = 0
         while i < n:
-            fast = fast.get_next()
+            fast = fast.next
             i += 1
         while fast != self.head:
-            cur = cur.get_next()
-            fast = fast.get_next()
-        return cur.get_data()
+            cur = cur.next
+            fast = fast.next
+        return cur.data
 
     def is_cyclic(self):
         """Returns True if a Cycle is still present"""
         slow_ptr = self.head
         fast_ptr = self.head
         while (slow_ptr and fast_ptr):
-            fast_ptr = fast_ptr.get_next()
+            fast_ptr = fast_ptr.next
             if fast_ptr == slow_ptr:
                 return True
             if fast_ptr is None:
                 return False
-            fast_ptr = fast_ptr.get_next()
+            fast_ptr = fast_ptr.next
             if fast_ptr == slow_ptr:
                 return True
-            slow_ptr = slow_ptr.get_next()
+            slow_ptr = slow_ptr.next
 
     def cycle_length(self):
         """Returns length of cycle(if one exists) using the fast pointer technique"""
-        if self.head is None or self.head.get_next() is None:
+        if self.head is None or self.head.next is None:
             return 0
         if not self.is_cyclic(): return 0
         slow = self.head
-        fast = self.head.get_next()
+        fast = self.head.next
         len1 = 1
         while slow != fast:
             len1 += 1
-            slow = slow.get_next()
-            if fast.get_next().get_next() is None:
+            slow = slow.next
+            if fast.next.next is None:
                 return 0
-            fast = fast.get_next().get_next()
+            fast = fast.next.next
         return len1
 
     def rev_in_place(self):
         """Reverses linkedlist in place"""
         last = None
         cur = self.head
-        while cur.get_next() != self.head:
-            nxt = cur.get_next()
-            cur.set_next(last)
+        while cur.next != self.head:
+            nxt = cur.next
+            cur.next = last
             last = cur
             cur = nxt
-        nxt = cur.get_next()
-        cur.set_next(last)
-        nxt.set_next(cur)
+        nxt = cur.next
+        cur.next = last
+        nxt.next = cur
         self.head = cur
 
     def swap_pairs(self):
@@ -570,12 +568,8 @@ class cLinkedList(object):
             print ('Need an Even Length Linked List for this')
             return False
         cur = self.head
-        while cur.get_next() != self.head and cur.get_next().get_next() != self.head:
-            t = cur.get_data()
-            cur.set_data(cur.get_next().get_data())
-            cur.get_next().set_data(t)
-            cur = cur.get_next().get_next()
-        t = cur.get_data()
-        cur.set_data(cur.get_next().get_data())
-        cur.get_next().set_data(t)
+        while cur.next != self.head and cur.next.next != self.head:
+            cur.data, cur.next.data = cur.next.data, cur.data
+            cur = cur.next.next
+        cur.data, cur.next.data = cur.next.data, cur.data 
         return True

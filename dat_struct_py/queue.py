@@ -33,16 +33,16 @@ class lQueue(object):
             self.front = sNode(data)
             self.rear = self.front
             return
-        self.rear.set_next(sNode(data))
-        self.rear = self.rear.get_next()
+        self.rear.next = sNode(data)
+        self.rear = self.rear.next
 
     def deQ(self):
         """Dequeue an element from the front of the Q"""
         if self.isEmpty():
             print("Underflow")
             return
-        popped_element = self.front.get_data()
-        self.front = self.front.get_next()
+        popped_element = self.front.data
+        self.front = self.front.next
         return popped_element
 
     def size(self):
@@ -53,9 +53,9 @@ class lQueue(object):
             return 1
         cur = self.front
         l = 0
-        while cur != self.rear.get_next():
+        while cur != self.rear.next:
             l += 1
-            cur = cur.get_next()
+            cur = cur.next
         return l
 
     def print_elements(self):
@@ -64,8 +64,8 @@ class lQueue(object):
             print("Underflow")
             return None
         cur = self.front
-        while cur != self.rear.get_next():
-            print ("%r" % cur.get_data())
+        while cur != self.rear.next:
+            print ("%r" % cur.data)
             cur = cur.get_next
 
     def flush(self):

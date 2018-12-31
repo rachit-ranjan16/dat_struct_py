@@ -8,15 +8,15 @@ class testQ(unittest.TestCase):
 
     def testQueueCreationWithInputList(self):
         someQ = lQueue(inp=[x+1 for x in range(5)])
-        self.assertEqual(someQ.front.get_data(), 1)
-        self.assertEqual(someQ.rear.get_data(), 5)
+        self.assertEqual(someQ.front.data, 1)
+        self.assertEqual(someQ.rear.data, 5)
         self.assertEqual(someQ.size(), 5)
 
     def testEnQAndDeQ(self):
         for i in range(5):
             self.Q.enQ(i+1)
-        self.assertEqual(self.Q.front.get_data(), 1)
-        self.assertEqual(self.Q.rear.get_data(), 5)
+        self.assertEqual(self.Q.front.data, 1)
+        self.assertEqual(self.Q.rear.data, 5)
         self.assertEqual(self.Q.deQ(), 1)
         self.assertEqual(self.Q.deQ(), 2)
         self.assertEqual(self.Q.deQ(), 3)

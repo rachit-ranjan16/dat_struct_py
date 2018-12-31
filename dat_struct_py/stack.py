@@ -32,7 +32,7 @@ class lStack(object):
             l = 0
             while cur is not None:
                 l += 1
-                cur = cur.get_next()
+                cur = cur.next
             return l
 
     def isFull(self):
@@ -54,9 +54,8 @@ class lStack(object):
         if self.isFull():
             print ('OverFlow')
         else:
-            t = sNode()
-            t.set_data(data)
-            t.set_next(self.head)
+            t = sNode(data)
+            t.next= self.head
             self.head = t
 
     def pop(self):
@@ -65,8 +64,8 @@ class lStack(object):
             print ('UnderFlow')
             return None
         else:
-            popped_element = self.head.get_data()
-            self.head = self.head.get_next()
+            popped_element = self.head.data
+            self.head = self.head.next
             return popped_element
 
     def peek(self):
@@ -75,7 +74,7 @@ class lStack(object):
             print ('UnderFlow')
             return None
         else:
-            return self.head.get_data()
+            return self.head.data
 
     def __sym_match(self, s1, s2):
         """Returns True if the input symbols are symmetric, False otherwise """
