@@ -34,7 +34,7 @@ echo "----------------------------"
 echo "Create and Activate Virtual Environment"
 echo "----------------------------"
 cd ..
-pyvenv developEnv
+python3 -m venv developEnv
 source developEnv/bin/activate
 pip install --upgrade pip
 echo "----------------------------"
