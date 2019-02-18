@@ -372,7 +372,7 @@ class dLinkedList:
         return True
 
 
-class cLinkedList(object):
+class cLinkedList:
     """	Circular Singly Linked List
 			Without Dedicated Header Node
 		Operations Covered

@@ -1,4 +1,4 @@
-class sNode(object):
+class sNode:
     """
     Singly Linked List Node
     """
