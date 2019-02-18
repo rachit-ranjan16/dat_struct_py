@@ -1,6 +1,6 @@
 from .blocks.node import sNode, dNode
 
-class sLinkedList(object):
+class sLinkedList:
     """	Singly Linked List
 			Without Dedicated Header Node
 		Operations Covered

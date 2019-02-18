@@ -17,7 +17,7 @@ class dNode:
         self.prev = prev
 
 
-class bNode():
+class bNode:
     """
     Binary Tree Node
     """
@@ -25,4 +25,4 @@ class bNode():
         self.data = data
         self.left = None 
         self.right = None 
-    
+        self.sibling = None
