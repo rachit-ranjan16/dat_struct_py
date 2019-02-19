@@ -2,25 +2,25 @@ from .blocks.node import bNode
 
 class BinarySearchTree: 
     """
-    Binary Tree 
-    Operations Covered 
+    Binary Tree
+    Operations Covered
         1. Create a binary search tree by
             a. Inserting values one by one
             b. Passing in an input list
-        2. Traversals 
-            a. Preorder 
+        2. Traversals
+            a. Preorder
             b. Inorder
-            c. Postorder 
+            c. Postorder
             d. Spiral
                 i. Clockwise
                 ii. Anticlockwise
             e. Boundary
-                i. Left to Right 
-                ii. Right to Left 
-        3. Print Leaves 
-        4. Node K nodes away from the root 
+                i. Left to Right
+                ii. Right to Left
+        3. Print Leaves
+        4. Node K nodes away from the root
         5. Max Width of the Tree
-        6. Right Hand Side View 
+        6. Right Hand Side View
     """
     def __init__(self, inp_list=[]):
         """
@@ -29,7 +29,6 @@ class BinarySearchTree:
         self.root = None
         if inp_list:
             self.insert_from_list(inp_list)
-            pass
     
     def _insert(self, node, data):
         """

@@ -33,4 +33,4 @@ class TestBinarySearchTrees(unittest.TestCase):
     def testInsert(self):
         self.bst.insert(9)
         self.assertEqual(self.bst.root.right.right.data, 9)
-        self.check_integrity() 
+        self.check_integrity()
