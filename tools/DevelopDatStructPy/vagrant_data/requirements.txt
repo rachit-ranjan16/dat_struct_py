@@ -1,3 +1,4 @@
 pytest
 coverage
 wheel
+twine
