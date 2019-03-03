@@ -2,7 +2,7 @@ import unittest
 from ..linkedlist import sLinkedList, dLinkedList, cLinkedList
 
 
-class testLinkedLists(unittest.TestCase):
+class TestLinkedLists(unittest.TestCase):
 
     def setUp(self):
         self.sLL = sLinkedList()

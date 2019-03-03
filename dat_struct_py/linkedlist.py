@@ -1,6 +1,6 @@
 from .blocks.node import sNode, dNode
 
-class sLinkedList(object):
+class sLinkedList:
     """	Singly Linked List
 			Without Dedicated Header Node
 		Operations Covered
@@ -14,7 +14,7 @@ class sLinkedList(object):
             5. Quick check whether the list has even length
             6. Return element nth element from the end
             7. Quick check whether a cycle exists
-            8. Return cycle length(if one exsits)
+            8. Return cycle length(if one exists)
             9. Reverse in Place
             10. Swap Pairs - Works only for Even length linkedlist"""
     def __init__(self, head=None, inp_list=[], insertEnd=True):
@@ -372,7 +372,7 @@ class dLinkedList:
         return True
 
 
-class cLinkedList(object):
+class cLinkedList:
     """	Circular Singly Linked List
 			Without Dedicated Header Node
 		Operations Covered

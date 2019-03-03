@@ -1,0 +1,4 @@
+pytest
+coverage
+wheel
+twine

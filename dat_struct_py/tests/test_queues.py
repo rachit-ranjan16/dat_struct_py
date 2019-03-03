@@ -1,7 +1,7 @@
 import unittest
 from ..queue import lQueue
 
-class testQ(unittest.TestCase):
+class TestQueues(unittest.TestCase):
 
     def setUp(self):
         self.Q = lQueue()

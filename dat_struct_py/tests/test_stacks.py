@@ -1,7 +1,7 @@
 import unittest
 from ..stack import lStack
 
-class testStacks(unittest.TestCase):
+class TestStacks(unittest.TestCase):
 
     def setUp(self):
         self.stack = lStack(10)
