@@ -60,4 +60,124 @@ class BinarySearchTree:
         """
         for data in inp_list:
             self.insert(data)
-        
+    
+    def _preorder_helper(self, node, out=[]):
+        """
+            Recursive helper for preorder traversal
+        """
+        if not node:
+            return
+        out.append(node.data)
+        if node.left:
+            self._preorder_helper(node.left, out)
+        if node.right: 
+            self._preorder_helper(node.right, out)
+        return out
+
+    def preorder(self):
+        """
+            Returns Preorder Traversal List 
+        """
+        if not self.root:
+            return []
+        return self._preorder_helper(self.root)
+
+    def _inorder_helper(self, node, out=[]):
+        """
+            Recursive helper for inorder traversal
+        """
+        if not node: 
+            return 
+        if node.left:
+            self._inorder_helper(node.left, out)
+        out.append(node.data)
+        if node.right: 
+            self._inorder_helper(node.right, out)
+        return out 
+    
+    def inorder(self):
+        """
+            Returns Preorder Traversal List 
+        """
+        if not self.root:
+            return []
+        if not self.root:
+            return []
+        return self._inorder_helper(self.root)
+
+    def _postorder_helper(self, node, out=[]):
+        """
+            Recursive helper for inorder traversal
+        """
+        if not node:
+            return
+        if node.left:
+            self._inorder_helper(node.left, out)
+        if node.right:
+            self._inorder_helper(node.right, out)
+        out.append(node.data)
+        return out
+
+    def postorder(self):
+        """
+            Returns Postorder Traversal List 
+        """
+        if not self.root:
+            return []
+        return self._postorder_helper(self.root)
+
+    def _spiral_anticlock_helper(self):
+        """
+            Returns Clockwise Spirally Traversed Tree
+        """
+        s1 = [self.root]
+        s2 = []
+        out = []
+        while s1 or s2:
+            while s1:
+                n = s1.pop()
+                out.append(n.data)
+                if n.right:
+                    s2.append(n.right)
+                if n.left:
+                    s2.append(n.left)
+            while s2:
+                n = s2.pop()
+                out.append(n.data)
+                if n.left:
+                    s1.append(n.left)
+                if n.right:
+                    s1.append(n.right)
+        return out
+
+    def _spiral_clock_helper(self):
+        """
+            Returns Anti Clockwise Spirally Traversed Tree
+        """
+        s1 = [self.root]
+        s2 = []
+        out = []
+        while s1 or s2:
+            while s1:
+                n = s1.pop()
+                out.append(n.data)
+                if n.left:
+                    s2.append(n.left)
+                if n.right:
+                    s2.append(n.right)
+            while s2:
+                n = s2.pop()
+                out.append(n.data)
+                if n.right:
+                    s1.append(n.right)
+                if n.left:
+                    s1.append(n.left)
+        return out
+    
+    def spiral(self, clockwise=False):
+        if not self.root: 
+            return [] 
+        if not clockwise:
+            return self._spiral_anticlock_helper()
+        else: 
+            return self._spiral_clock_helper()
