@@ -40,8 +40,7 @@ pip install --upgrade pip
 echo "----------------------------"
 echo "Install Coverage and Wheel"
 echo "----------------------------"
-pip install wheel
-pip install coverage
+pip install -r /vagrant_data/requirements.txt
 echo "----------------------------"
 echo "All set"
 echo "----------------------------"
