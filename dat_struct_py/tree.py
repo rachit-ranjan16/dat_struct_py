@@ -175,9 +175,61 @@ class BinarySearchTree:
         return out
     
     def spiral(self, clockwise=False):
+        """
+            Returns Clockwise/Counter Clockwise Spirally Traversed Tree
+        """
         if not self.root: 
             return [] 
         if not clockwise:
             return self._spiral_anticlock_helper()
         else: 
             return self._spiral_clock_helper()
+    
+    def _rhs_view(self):
+        """
+            Returns the RHS View/Projection of the tree
+        """
+        q, out  = [], [] 
+        q.append(self.root)
+        while q:
+            c = len(q)
+            while c!=0:
+                if c == 1:
+                    out.append(q[0].data)
+                n = q.pop(0)
+                if n.left: 
+                    q.append(n.left)
+                if n.right:
+                    q.append(n.right)
+                c -= 1 
+        return out
+
+    def _lhs_view(self):
+        """
+            Returns the LHS View/Projection of the tree
+        """
+        q, out = [], []
+        q.append(self.root)
+        while q:
+            c = len(q)
+            while c != 0:
+                if c == 1:
+                    out.append(q[0].data)
+                n = q.pop(0)
+                if n.right:
+                    q.append(n.right)
+                if n.left:
+                    q.append(n.left)
+                c -= 1
+        return out
+
+    def view(self, rhs=True):
+        """
+            Returns the Right/Left Hand View/Projection of the tree
+        """
+        if not self.root: 
+            return []
+        if not rhs: 
+            return self._lhs_view()
+        else: 
+            return self._rhs_view()

@@ -69,3 +69,13 @@ class TestBinarySearchTrees(unittest.TestCase):
         spiral_clock = self.bst.spiral(clockwise=True)
         self.assertEqual(len(spiral_clock), 5)
         self.assertEqual(spiral_clock, [5, 8, 4, 3, 7])
+
+    def testRhsView(self):
+        rhs_view = self.bst.view(rhs=True)
+        self.assertEqual(len(rhs_view), 3)
+        self.assertEqual(rhs_view, [5, 8, 7])
+
+    def testLhsView(self):
+        lhs_view = self.bst.view(rhs=False)
+        self.assertEqual(len(lhs_view), 3)
+        self.assertEqual(lhs_view, [5, 4, 3])
