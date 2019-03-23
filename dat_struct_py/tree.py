@@ -233,3 +233,58 @@ class BinarySearchTree:
             return self._lhs_view()
         else: 
             return self._rhs_view()
+
+    def get_leaves(self, out=[]):
+        """
+            Returns leaves of the tree
+        """
+        pass 
+
+    def _get_leaves(self, root, visited_set, out):
+        if not root:
+            return 
+        if not root.left and not root.right: 
+            if root not in visited_set:
+                visited_set.add(root)
+                out.append(root.data)
+        if root.left:
+            self._get_leaves(root.left, visited_set, out)
+        if root.right:
+            self._get_leaves(root.right, visited_set, out)
+
+
+    def get_boundary(self):
+        """
+            Returns the boundary nodes of the tree
+        """
+        if not self.root: 
+            return []
+        out = []
+        visited_set = set()
+        visited_set.add(self.root)
+        out.append(self.root.data)
+        l = self.root.left
+
+        # Traverse Left to Bottom
+        while l:
+            visited_set.add(l)
+            out.append(l.data)
+            l = l.left
+        
+        # Get all the leaves
+        self._get_leaves(self.root, visited_set, out)
+        #TODO Remove this 
+        # return out
+        
+        # Get al the nodes from right bottom to the root
+        stack = []
+        r = self.root.right 
+        while r:
+            if r not in visited_set:
+                visited_set.add(r)
+                stack.append(r)
+            r = r.right
+        for node in stack[::-1]:
+            out.append(node.data)
+        
+        return out 
