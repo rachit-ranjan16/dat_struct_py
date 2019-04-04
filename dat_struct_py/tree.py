@@ -175,9 +175,129 @@ class BinarySearchTree:
         return out
     
     def spiral(self, clockwise=False):
+        """
+            Returns Clockwise/Counter Clockwise Spirally Traversed Tree
+        """
         if not self.root: 
             return [] 
         if not clockwise:
             return self._spiral_anticlock_helper()
         else: 
             return self._spiral_clock_helper()
+    
+    def _rhs_view(self):
+        """
+            Returns the RHS View/Projection of the tree
+        """
+        q, out = [], [] 
+        q.append(self.root)
+        while q:
+            c = len(q)
+            while c != 0:
+                if c == 1:
+                    out.append(q[0].data)
+                n = q.pop(0)
+                if n.left: 
+                    q.append(n.left)
+                if n.right:
+                    q.append(n.right)
+                c -= 1 
+        return out
+
+    def _lhs_view(self):
+        """
+            Returns the LHS View/Projection of the tree
+        """
+        q, out = [], []
+        q.append(self.root)
+        while q:
+            c = len(q)
+            while c != 0:
+                if c == 1:
+                    out.append(q[0].data)
+                n = q.pop(0)
+                if n.right:
+                    q.append(n.right)
+                if n.left:
+                    q.append(n.left)
+                c -= 1
+        return out
+
+    def view(self, rhs=True):
+        """
+            Returns the Right/Left Hand View/Projection of the tree
+        """
+        if not self.root: 
+            return []
+        if not rhs: 
+            return self._lhs_view()
+        else: 
+            return self._rhs_view()
+
+    def _get_leaves(self, root, visited_set, out):
+        if not root:
+            return 
+        if not root.left and not root.right: 
+            if root not in visited_set:
+                visited_set.add(root)
+                out.append(root.data)
+        if root.left:
+            self._get_leaves(root.left, visited_set, out)
+        if root.right:
+            self._get_leaves(root.right, visited_set, out)
+
+
+    def get_boundary(self):
+        """
+            Returns the boundary nodes of the tree
+        """
+        if not self.root: 
+            return []
+        out = []
+        visited_set = set()
+        visited_set.add(self.root)
+        out.append(self.root.data)
+        l = self.root.left
+
+        # Traverse Left to Bottom
+        while l:
+            visited_set.add(l)
+            out.append(l.data)
+            l = l.left
+        
+        # Get all the leaves
+        self._get_leaves(self.root, visited_set, out)
+        
+        # Get all the nodes from right bottom to the root
+        stack = []
+        r = self.root.right 
+        while r:
+            if r not in visited_set:
+                visited_set.add(r)
+                stack.append(r)
+            r = r.right            
+        for node in stack[::-1]:
+            out.append(node.data)
+        
+        return out 
+
+    def _k_from_root(self, root, k, dist, out):
+        """
+            Recursive function to evaluate nodes at a distance of k from root
+        """
+        if not root:
+            return 
+        if k == dist:
+            out.append(root.data)
+        if root.left:
+            self._k_from_root(root.left, k, dist + 1, out)
+        if root.right:
+            self._k_from_root(root.right, k, dist + 1, out)
+
+    def k_from_root(self, k):
+        """
+            Wrapper for returning node values which are k distance from the root
+        """
+        out = []
+        self._k_from_root(self.root, k, 0, out)
+        return out 

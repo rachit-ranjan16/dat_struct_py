@@ -69,3 +69,37 @@ class TestBinarySearchTrees(unittest.TestCase):
         spiral_clock = self.bst.spiral(clockwise=True)
         self.assertEqual(len(spiral_clock), 5)
         self.assertEqual(spiral_clock, [5, 8, 4, 3, 7])
+
+    def testRhsView(self):
+        rhs_view = self.bst.view(rhs=True)
+        self.assertEqual(len(rhs_view), 3)
+        self.assertEqual(rhs_view, [5, 8, 7])
+
+    def testLhsView(self):
+        lhs_view = self.bst.view(rhs=False)
+        self.assertEqual(len(lhs_view), 3)
+        self.assertEqual(lhs_view, [5, 4, 3])
+
+    def testBoundaryNodes(self):
+        boundary = self.bst.get_boundary()
+        self.assertEqual(len(boundary), 5)
+        self.assertEqual(boundary, [5, 4, 3, 7, 8])
+        
+        bst = BinarySearchTree()
+        bst.insert_from_list([5, 4, 3, 8, 7, 4.5, 4.45, 4.75, 9])
+        #            5
+        #       /         \
+        #     4             8
+        #   /   \         /    \
+        #  3     4.5     7      9
+        #       /    \
+        #      4.45   4.75
+        boundary = bst.get_boundary()
+        self.assertEqual(len(boundary), 8)
+        self.assertEqual(boundary, [5, 4, 3, 4.45, 4.75, 7, 9, 8])
+
+    def testKFromRoot(self):
+        k_dist_nodes = self.bst.k_from_root(2)
+        self.assertIsNotNone(k_dist_nodes)
+        self.assertEqual(len(k_dist_nodes), 2)
+        self.assertEqual(k_dist_nodes, [3, 7])
