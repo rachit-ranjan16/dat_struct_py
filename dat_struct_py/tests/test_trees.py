@@ -97,3 +97,9 @@ class TestBinarySearchTrees(unittest.TestCase):
         boundary = bst.get_boundary()
         self.assertEqual(len(boundary), 8)
         self.assertEqual(boundary, [5, 4, 3, 4.45, 4.75, 7, 9, 8])
+
+    def testKFromRoot(self):
+        k_dist_nodes = self.bst.k_from_root(2)
+        self.assertIsNotNone(k_dist_nodes)
+        self.assertEqual(len(k_dist_nodes), 2)
+        self.assertEqual(k_dist_nodes, [3, 7])

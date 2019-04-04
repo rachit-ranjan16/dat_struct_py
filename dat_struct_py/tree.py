@@ -189,11 +189,11 @@ class BinarySearchTree:
         """
             Returns the RHS View/Projection of the tree
         """
-        q, out  = [], [] 
+        q, out = [], [] 
         q.append(self.root)
         while q:
             c = len(q)
-            while c!=0:
+            while c != 0:
                 if c == 1:
                     out.append(q[0].data)
                 n = q.pop(0)
@@ -234,12 +234,6 @@ class BinarySearchTree:
         else: 
             return self._rhs_view()
 
-    def get_leaves(self, out=[]):
-        """
-            Returns leaves of the tree
-        """
-        pass 
-
     def _get_leaves(self, root, visited_set, out):
         if not root:
             return 
@@ -273,18 +267,37 @@ class BinarySearchTree:
         
         # Get all the leaves
         self._get_leaves(self.root, visited_set, out)
-        #TODO Remove this 
-        # return out
         
-        # Get al the nodes from right bottom to the root
+        # Get all the nodes from right bottom to the root
         stack = []
         r = self.root.right 
         while r:
             if r not in visited_set:
                 visited_set.add(r)
                 stack.append(r)
-            r = r.right
+            r = r.right            
         for node in stack[::-1]:
             out.append(node.data)
         
+        return out 
+
+    def _k_from_root(self, root, k, dist, out):
+        """
+            Recursive function to evaluate nodes at a distance of k from root
+        """
+        if not root:
+            return 
+        if k == dist:
+            out.append(root.data)
+        if root.left:
+            self._k_from_root(root.left, k, dist + 1, out)
+        if root.right:
+            self._k_from_root(root.right, k, dist + 1, out)
+
+    def k_from_root(self, k):
+        """
+            Wrapper for returning node values which are k distance from the root
+        """
+        out = []
+        self._k_from_root(self.root, k, 0, out)
         return out 
