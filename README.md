@@ -4,7 +4,7 @@ Basic Data Structures and Operations Implemented in Python
 
 ## Installation Instructions
 
-- Python 3.5 is currently supported
+- Python 3.5+ is currently supported
 - Install from PyPI using
   - pip install dat-struct-py
 
@@ -15,7 +15,7 @@ Basic Data Structures and Operations Implemented in Python
 - Circularly Singly Linked List  
 - Stack using Linked List
 - Queue using Linked List
-- Binary Search Tree
+- Tree (Binary Search Tree)
 
 ### Operations Supported for Linked Lists
 
@@ -64,6 +64,14 @@ Basic Data Structures and Operations Implemented in Python
   - Spiral
     - Clockwise
     - Anticlockwise
+  - Boundary
+- Projections/Views
+  - LHS
+  - RHS
+- Nodes at K distance away from root
+- Connect Nodes at the Same Level
+  - Singly Linked List
+  - Circularly Singly Linked List
 
 ## Developer Tools
 
