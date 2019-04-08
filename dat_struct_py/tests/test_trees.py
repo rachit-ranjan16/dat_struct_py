@@ -103,3 +103,21 @@ class TestBinarySearchTrees(unittest.TestCase):
         self.assertIsNotNone(k_dist_nodes)
         self.assertEqual(len(k_dist_nodes), 2)
         self.assertEqual(k_dist_nodes, [3, 7])
+
+    def testConnectSiblings(self):
+        self.bst.connect_siblings() 
+        self.check_integrity()
+        self.assertIsNone(self.bst.root.sibling)
+        self.assertEqual(self.bst.root.left.sibling, self.bst.root.right)
+        self.assertIsNone(self.bst.root.right.sibling)
+        self.assertEqual(self.bst.root.left.left.sibling, self.bst.root.right.left)
+        self.assertIsNone(self.bst.root.right.left.sibling)
+
+    def testCyclicConnectSiblings(self):
+        self.bst.connect_siblings(cyclic=True)
+        self.check_integrity()
+        self.assertEqual(self.bst.root.sibling, self.bst.root)
+        self.assertEqual(self.bst.root.left.sibling, self.bst.root.right)
+        self.assertEqual(self.bst.root.right.sibling, self.bst.root.left)
+        self.assertEqual(self.bst.root.left.left.sibling, self.bst.root.right.left)
+        self.assertEqual(self.bst.root.right.left.sibling, self.bst.root.left.left)

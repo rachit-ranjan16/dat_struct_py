@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-ver = "1.5"
+ver = "1.6.1"
 with open("README.md", mode='r') as f:
     long_description = f.read()
 
@@ -22,5 +22,5 @@ setup(
     keywords='data structures operations',
     packages=find_packages(),  # same as name
     install_requires=[],
-    python_requires='~=3.5'
+    python_requires='>=3.5'
 )

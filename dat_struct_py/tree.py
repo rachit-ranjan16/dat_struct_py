@@ -17,10 +17,13 @@ class BinarySearchTree:
             e. Boundary
                 i. Left to Right
                 ii. Right to Left
-        3. Print Leaves
-        4. Node K nodes away from the root
-        5. Max Width of the Tree
-        6. Right Hand Side View
+        3. Projections/Views
+            a. LHS
+            b. RHS
+        3. Node K nodes away from the root
+        4. Connect Nodes at the same level 
+            a. Singly Linked List 
+            b. Circularly Singly Linked List
     """
     def __init__(self, inp_list=[]):
         """
@@ -61,7 +64,7 @@ class BinarySearchTree:
         for data in inp_list:
             self.insert(data)
     
-    def _preorder_helper(self, node, out=[]):
+    def _preorder_helper(self, node, out):
         """
             Recursive helper for preorder traversal
         """
@@ -80,9 +83,9 @@ class BinarySearchTree:
         """
         if not self.root:
             return []
-        return self._preorder_helper(self.root)
+        return self._preorder_helper(self.root, out=[])
 
-    def _inorder_helper(self, node, out=[]):
+    def _inorder_helper(self, node, out):
         """
             Recursive helper for inorder traversal
         """
@@ -97,15 +100,15 @@ class BinarySearchTree:
     
     def inorder(self):
         """
-            Returns Preorder Traversal List 
+            Returns Inorder Traversal List 
         """
         if not self.root:
             return []
         if not self.root:
             return []
-        return self._inorder_helper(self.root)
+        return self._inorder_helper(self.root, out=[])
 
-    def _postorder_helper(self, node, out=[]):
+    def _postorder_helper(self, node, out):
         """
             Recursive helper for inorder traversal
         """
@@ -124,7 +127,7 @@ class BinarySearchTree:
         """
         if not self.root:
             return []
-        return self._postorder_helper(self.root)
+        return self._postorder_helper(self.root, out=[])
 
     def _spiral_anticlock_helper(self):
         """
@@ -301,3 +304,60 @@ class BinarySearchTree:
         out = []
         self._k_from_root(self.root, k, 0, out)
         return out 
+
+    def _clink_siblings(self):
+        """
+            Connects nodes at the same level in a circular singly LL
+        """
+        q = []
+        prev = None
+        q.append(self.root)
+        q.append(None)
+        while q:
+            n = q.pop(0)
+            if n:
+                if not q[0]:
+                    if not prev:
+                        n.sibling = n
+                    else: 
+                        n.sibling = prev
+                else: 
+                    n.sibling = q[0]
+                if n.left:
+                    q.append(n.left)
+                if n.right:
+                    q.append(n.right)
+                prev = n
+            elif q:
+                q.append(None)
+
+    def _link_siblings(self):
+        """
+            Connects nodes at the same level in a singly LL
+        """
+        q = []
+        q.append(self.root)
+        q.append(None)
+        while q:
+            n = q.pop(0)
+            if n:
+                n.sibling = q[0]
+                if n.left:
+                    q.append(n.left)
+                if n.right:
+                    q.append(n.right)
+            elif q:
+                q.append(None)
+
+    def connect_siblings(self, cyclic=False):
+        """
+            Connects nodes at the same level
+        """
+        if not self.root: 
+            return 
+        # Connect siblings in a linked list 
+        if not cyclic: 
+            self._link_siblings()
+        else: 
+            self._clink_siblings()
+        

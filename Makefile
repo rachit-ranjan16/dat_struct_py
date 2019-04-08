@@ -3,6 +3,7 @@ build:
 	python setup.py sdist --format=gztar
 	twine upload dist/*
 	# python setup.py bdist_wheel
+	echo "Build Completed"
 clean:
 	rm -rf dist/
 	rm -rf build/
@@ -12,6 +13,8 @@ clean:
 	rm -rf dat_struct_py/tests/__pycache__
 	rm -rf .coverage
 	rm -rf htmlcov
+	echo "Cleanup Complete" 
 test:
 	coverage run setup.py test
-	coverage html
+	coverage html --omit="*datstructpyenv*,*test*,*init*,*setup*"
+	echo "Tests Completed"
