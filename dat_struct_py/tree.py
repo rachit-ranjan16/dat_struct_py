@@ -1,6 +1,6 @@
 from .blocks.node import bNode
 
-class BinarySearchTree: 
+class BinarySearchTree:
     """
     Binary Tree
     Operations Covered
@@ -21,8 +21,8 @@ class BinarySearchTree:
             a. LHS
             b. RHS
         3. Node K nodes away from the root
-        4. Connect Nodes at the same level 
-            a. Singly Linked List 
+        4. Connect Nodes at the same level
+            a. Singly Linked List
             b. Circularly Singly Linked List
     """
     def __init__(self, inp_list=[]):
@@ -32,38 +32,38 @@ class BinarySearchTree:
         self.root = None
         if inp_list:
             self.insert_from_list(inp_list)
-    
+
     def _insert(self, node, data):
         """
             Recursively inserts data into the BST
         """
-        if data <= node.data: 
-            if not node.left: 
+        if data <= node.data:
+            if not node.left:
                 node.left = bNode(data)
-            else: 
+            else:
                 self._insert(node.left, data)
         else:
-            if not node.right: 
+            if not node.right:
                 node.right = bNode(data)
-            else: 
+            else:
                 self._insert(node.right, data)
 
     def insert(self, data):
         """
             Wrapper for recursively inserting into BST
         """
-        if not self.root: 
+        if not self.root:
             self.root = bNode(data)
-        else: 
+        else:
             self._insert(self.root, data)
-    
+
     def insert_from_list(self, inp_list):
         """
             Creates a BST from the passed input list
         """
         for data in inp_list:
             self.insert(data)
-    
+
     def _preorder_helper(self, node, out):
         """
             Recursive helper for preorder traversal
@@ -73,13 +73,13 @@ class BinarySearchTree:
         out.append(node.data)
         if node.left:
             self._preorder_helper(node.left, out)
-        if node.right: 
+        if node.right:
             self._preorder_helper(node.right, out)
         return out
 
     def preorder(self):
         """
-            Returns Preorder Traversal List 
+            Returns Preorder Traversal List
         """
         if not self.root:
             return []
@@ -89,18 +89,18 @@ class BinarySearchTree:
         """
             Recursive helper for inorder traversal
         """
-        if not node: 
-            return 
+        if not node:
+            return
         if node.left:
             self._inorder_helper(node.left, out)
         out.append(node.data)
-        if node.right: 
+        if node.right:
             self._inorder_helper(node.right, out)
-        return out 
-    
+        return out
+
     def inorder(self):
         """
-            Returns Inorder Traversal List 
+            Returns Inorder Traversal List
         """
         if not self.root:
             return []
@@ -123,7 +123,7 @@ class BinarySearchTree:
 
     def postorder(self):
         """
-            Returns Postorder Traversal List 
+            Returns Postorder Traversal List
         """
         if not self.root:
             return []
@@ -176,23 +176,23 @@ class BinarySearchTree:
                 if n.left:
                     s1.append(n.left)
         return out
-    
+
     def spiral(self, clockwise=False):
         """
             Returns Clockwise/Counter Clockwise Spirally Traversed Tree
         """
-        if not self.root: 
-            return [] 
+        if not self.root:
+            return []
         if not clockwise:
             return self._spiral_anticlock_helper()
-        else: 
+        else:
             return self._spiral_clock_helper()
-    
+
     def _rhs_view(self):
         """
             Returns the RHS View/Projection of the tree
         """
-        q, out = [], [] 
+        q, out = [], []
         q.append(self.root)
         while q:
             c = len(q)
@@ -200,11 +200,11 @@ class BinarySearchTree:
                 if c == 1:
                     out.append(q[0].data)
                 n = q.pop(0)
-                if n.left: 
+                if n.left:
                     q.append(n.left)
                 if n.right:
                     q.append(n.right)
-                c -= 1 
+                c -= 1
         return out
 
     def _lhs_view(self):
@@ -230,17 +230,17 @@ class BinarySearchTree:
         """
             Returns the Right/Left Hand View/Projection of the tree
         """
-        if not self.root: 
+        if not self.root:
             return []
-        if not rhs: 
+        if not rhs:
             return self._lhs_view()
-        else: 
+        else:
             return self._rhs_view()
 
     def _get_leaves(self, root, visited_set, out):
         if not root:
-            return 
-        if not root.left and not root.right: 
+            return
+        if not root.left and not root.right:
             if root not in visited_set:
                 visited_set.add(root)
                 out.append(root.data)
@@ -254,7 +254,7 @@ class BinarySearchTree:
         """
             Returns the boundary nodes of the tree
         """
-        if not self.root: 
+        if not self.root:
             return []
         out = []
         visited_set = set()
@@ -267,29 +267,29 @@ class BinarySearchTree:
             visited_set.add(l)
             out.append(l.data)
             l = l.left
-        
+
         # Get all the leaves
         self._get_leaves(self.root, visited_set, out)
-        
+
         # Get all the nodes from right bottom to the root
         stack = []
-        r = self.root.right 
+        r = self.root.right
         while r:
             if r not in visited_set:
                 visited_set.add(r)
                 stack.append(r)
-            r = r.right            
+            r = r.right
         for node in stack[::-1]:
             out.append(node.data)
-        
-        return out 
+
+        return out
 
     def _k_from_root(self, root, k, dist, out):
         """
             Recursive function to evaluate nodes at a distance of k from root
         """
         if not root:
-            return 
+            return
         if k == dist:
             out.append(root.data)
         if root.left:
@@ -303,7 +303,7 @@ class BinarySearchTree:
         """
         out = []
         self._k_from_root(self.root, k, 0, out)
-        return out 
+        return out
 
     def _clink_siblings(self):
         """
@@ -319,9 +319,9 @@ class BinarySearchTree:
                 if not q[0]:
                     if not prev:
                         n.sibling = n
-                    else: 
+                    else:
                         n.sibling = prev
-                else: 
+                else:
                     n.sibling = q[0]
                 if n.left:
                     q.append(n.left)
@@ -353,11 +353,11 @@ class BinarySearchTree:
         """
             Connects nodes at the same level
         """
-        if not self.root: 
-            return 
-        # Connect siblings in a linked list 
-        if not cyclic: 
+        if not self.root:
+            return
+        # Connect siblings in a linked list
+        if not cyclic:
             self._link_siblings()
-        else: 
+        else:
             self._clink_siblings()
-        
+

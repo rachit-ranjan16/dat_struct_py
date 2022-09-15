@@ -571,5 +571,5 @@ class cLinkedList:
         while cur.next != self.head and cur.next.next != self.head:
             cur.data, cur.next.data = cur.next.data, cur.data
             cur = cur.next.next
-        cur.data, cur.next.data = cur.next.data, cur.data 
+        cur.data, cur.next.data = cur.next.data, cur.data
         return True
