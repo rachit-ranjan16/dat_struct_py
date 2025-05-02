@@ -78,30 +78,36 @@ class lStack(object):
 
     def __sym_match(self, s1, s2):
         """Returns True if the input symbols are symmetric, False otherwise """
-        if (s1 == '[' and s2 ==']') or (s2 == '[' and s1 =='['):
+        if s1 == '[' and s2 == ']':
             return True
-        elif (s1 == '{' and s2 == '}') or (s2 == '{' and s1 == '}'):
+        elif s1 == '{' and s2 == '}':
             return True
-        elif (s1 == '(' and s2 ==')') or (s2 == '(' and s1 == ')'):
+        elif s1 == '(' and s2 == ')':
             return True
-        else:
-            return False
+        return False
 
     def symbols_balanced(self, expr):
         """Returns True if the passed symbols(brackets) are sequentially balanced, False otherwise"""
+        if not expr:  # Handle empty string case
+            return False
+            
         for symbol in expr:
             if symbol in ('[', '{', '('):
                 self.push(symbol)
             else:
+                if symbol not in (']', '}', ')'):
+                    return False  # Non-bracket character
                 if self.isEmpty():
                     return False
-                else:
-                    st_top_sym = self.pop()
+                st_top_sym = self.pop()
                 if not self.__sym_match(st_top_sym, symbol):
                     self.flush()
                     return False
+        
+        # Check if any unclosed brackets remain
+        result = self.isEmpty()
         self.flush()
-        return True
+        return result
 
     def flush(self):
         """Empties the stack"""
@@ -110,14 +116,26 @@ class lStack(object):
 
     def filter_adj_rec_ele(self, inp):
         """Filters out all the adjacent duplicate elements from the input"""
-        for i in inp:
-            if self.isEmpty():
-                self.push(i)
-            elif self.peek() == i:
+        if not inp:
+            return ""
+            
+        # Empty the stack first (in case it was used before)
+        self.flush()
+        result = []
+        # Process the input string
+        for char in inp:
+            # If stack is not empty and top element equals current char
+            if not self.isEmpty() and self.peek() == char:
+                # Pop the matching element (remove the pair)
                 self.pop()
             else:
-                self.push(i)
-        out = ''
-        while self.isEmpty() is False:
-            out += self.pop()
-        return out[::-1]
+                # Push the current character to the stack
+                self.push(char)
+        
+        # Build the result string by popping all elements from the stack
+        # The elements will be in reverse order
+        while not self.isEmpty():
+            result.append(self.pop())
+        
+        # Reverse the result to get the correct order
+        return ''.join(reversed(result))

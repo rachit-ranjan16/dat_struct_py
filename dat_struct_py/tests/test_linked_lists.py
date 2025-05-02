@@ -1,239 +1,320 @@
-import unittest
+import pytest
 from ..linkedlist import sLinkedList, dLinkedList, cLinkedList
 
+# Common test data
+TEST_LIST = [1, 2, 3, 4, 5]
 
-class TestLinkedLists(unittest.TestCase):
+# Fixtures for each linked list type
+@pytest.fixture
+def empty_singly():
+    """Fixture for empty singly linked list"""
+    return sLinkedList()
 
-    def setUp(self):
-        self.sLL = sLinkedList()
-        self.dLL = dLinkedList()
-        self.cLL = cLinkedList()
+@pytest.fixture
+def empty_doubly():
+    """Fixture for empty doubly linked list"""
+    return dLinkedList()
+
+@pytest.fixture
+def empty_circular():
+    """Fixture for empty circular linked list"""
+    return cLinkedList()
+
+@pytest.fixture
+def populated_singly():
+    """Fixture for populated singly linked list with values 5->4->3->2->1"""
+    ll = sLinkedList()
+    for i in range(5):
+        ll.insert_beginning(i + 1)
+    return ll
+
+@pytest.fixture
+def populated_doubly():
+    """Fixture for populated doubly linked list with values 5->4->3->2->1"""
+    ll = dLinkedList()
+    for i in range(5):
+        ll.insert_beginning(i + 1)
+    return ll
+
+@pytest.fixture
+def populated_circular():
+    """Fixture for populated circular linked list with values 5->4->3->2->1"""
+    ll = cLinkedList()
+    for i in range(5):
+        ll.insert_beginning(i + 1)
+    return ll
+
+# Test classes for each linked list type
+class TestSinglyLinkedList:
+    @pytest.mark.parametrize("insert_at_end", [True, False])
+    def test_initialization_from_list(self, insert_at_end):
+        """Test initializing singly linked list from input list"""
+        ll = sLinkedList(inp_list=TEST_LIST, insertEnd=insert_at_end)
+        assert ll.size() == 5
+        if insert_at_end:
+            assert ll.head.data == 1
+            assert self._get_last_node(ll).data == 5
+        else:
+            assert ll.head.data == 5
+            assert self._get_last_node(ll).data == 1
+
+    def test_insert_beginning(self, populated_singly):
+        """Test insertion at beginning"""
+        assert populated_singly.size() == 5
+        assert populated_singly.head.data == 5
+
+    def test_insert_end(self, empty_singly):
+        """Test insertion at end"""
         for i in range(5):
-            self.sLL.insert_beginning(i+1)
-            self.dLL.insert_beginning(i+1)
-            self.cLL.insert_beginning(i+1)
+            empty_singly.insert_end(i + 1)
+        assert empty_singly.size() == 5
+        assert empty_singly.head.data == 1
+        assert self._get_last_node(empty_singly).data == 5
 
-    def testSinglyLLInputFromListBeginning(self):
-        inp_list = [1,2,3,4,5]
-        l = sLinkedList(inp_list=inp_list, insertEnd=False)
-        self.assertEqual(l.size(), 5)
-        self.assertEqual(l.head.data, 5)
-        cur = l.head
-        while cur.next is not None:
-                cur = cur.next
-        self.assertEqual(cur.data, 1)
+    @pytest.mark.parametrize("list_state,expected", [
+        ([], True),
+        ([1], False),
+        ([1, 2], True),
+        ([1, 2, 3], False)
+    ])
+    def test_even_length(self, empty_singly, list_state, expected):
+        """Test even length detection"""
+        for item in list_state:
+            empty_singly.insert_end(item)
+        assert empty_singly.is_length_even() == expected
 
-    def testSinglyLLInputFromListEnd(self):
-        inp_list = [1,2,3,4,5]
-        l = sLinkedList(inp_list=inp_list)
-        self.assertEqual(l.size(), 5)
-        self.assertEqual(l.head.data, 1)
-        cur = l.head
-        while cur.next is not None:
-                cur = cur.next
-        self.assertEqual(cur.data, 5)
+    def test_cyclicity(self, populated_singly):
+        """Test cycle detection and length"""
+        assert not populated_singly.is_cyclic()
+        assert populated_singly.cycle_length() == 0
 
-    def testSinglyLLInsertFromBeginning(self):
-        self.assertEqual(self.sLL.size(),5)
-        self.assertEqual(self.sLL.head.data, 5)
+    @pytest.mark.parametrize("n,expected", [
+        (2, 2),
+        (1, 1),
+        (5, 5),
+        (10, False)
+    ])
+    def test_nth_from_end(self, populated_singly, n, expected):
+        """Test finding nth element from end"""
+        assert populated_singly.from_the_end(n) == expected
 
-    def testSinglyLLInsertFromEnd(self):
-        l = sLinkedList()
+    def test_delete(self, populated_singly):
+        """Test node deletion"""
+        populated_singly.del_node(3)
+        assert populated_singly.size() == 4
+        populated_singly.del_node(5)
+        assert populated_singly.size() == 3
+        # Try deleting non-existent value
+        populated_singly.del_node(3)
+        assert populated_singly.size() == 3
+
+    def test_reverse_in_place(self, populated_singly):
+        """Test in-place reversal"""
+        populated_singly.rev_in_place()
+        assert populated_singly.head.data == 1
+        assert populated_singly.size() == 5
+        assert self._get_last_node(populated_singly).data == 5
+
+    def test_swap_pairs(self, populated_singly):
+        """Test swapping adjacent pairs"""
+        populated_singly.insert_beginning(6)  # Make even length
+        assert populated_singly.swap_pairs()
+        assert populated_singly.head.data == 5
+        assert populated_singly.head.next.data == 6
+        # Check last pair
+        current = populated_singly.head
+        while current.next.next:
+            current = current.next
+        assert current.data == 1
+        assert current.next.data == 2
+
+    @staticmethod
+    def _get_last_node(ll):
+        """Helper to get last node of a linked list"""
+        current = ll.head
+        while current.next:
+            current = current.next
+        return current
+
+class TestDoublyLinkedList:
+    @pytest.mark.parametrize("insert_at_end", [True, False])
+    def test_initialization_from_list(self, insert_at_end):
+        """Test initializing doubly linked list from input list"""
+        ll = dLinkedList(inp_list=TEST_LIST, insertEnd=insert_at_end)
+        assert ll.size() == 5
+        if insert_at_end:
+            assert ll.head.data == 1
+            assert self._get_last_node(ll).data == 5
+        else:
+            assert ll.head.data == 5
+            assert self._get_last_node(ll).data == 1
+
+    def test_insert_beginning(self, populated_doubly):
+        """Test insertion at beginning"""
+        assert populated_doubly.size() == 5
+        assert populated_doubly.head.data == 5
+
+    def test_insert_end(self, empty_doubly):
+        """Test insertion at end"""
         for i in range(5):
-            l.insert_end(i+1)
-        self.assertEqual(l.size(),5)
-        self.assertEqual(l.head.data, 1)
+            empty_doubly.insert_end(i + 1)
+        assert empty_doubly.size() == 5
+        assert empty_doubly.head.data == 1
+        assert self._get_last_node(empty_doubly).data == 5
 
-    def testSinglyLLEvenLength(self):
-        self.assertEqual(self.sLL.is_length_even(), False)
-        self.assertEqual(sLinkedList().is_length_even(), True)
+    @pytest.mark.parametrize("list_state,expected", [
+        ([], True),
+        ([1], False),
+        ([1, 2], True),
+        ([1, 2, 3], False)
+    ])
+    def test_even_length(self, empty_doubly, list_state, expected):
+        """Test even length detection"""
+        for item in list_state:
+            empty_doubly.insert_end(item)
+        assert empty_doubly.is_length_even() == expected
 
-    def testSinglyLLCyclicity(self):
-        self.assertEqual(self.sLL.is_cyclic(), False)
-        self.assertEqual(self.sLL.cycle_length(), 0)
-        self.assertEqual(sLinkedList().cycle_length(), 0)
+    def test_cyclicity(self, populated_doubly):
+        """Test cycle detection and length"""
+        assert not populated_doubly.is_cyclic()
+        assert populated_doubly.cycle_length() == 0
 
-    def testSinglyLLNthElementFromEnd(self):
-        self.assertEqual(self.sLL.from_the_end(2), 2)
-        self.assertEqual(self.sLL.from_the_end(10), False)
+    @pytest.mark.parametrize("n,expected", [
+        (2, 2),
+        (1, 1),
+        (5, 5),
+        (12, False)
+    ])
+    def test_nth_from_end(self, populated_doubly, n, expected):
+        """Test finding nth element from end"""
+        assert populated_doubly.from_the_end(n) == expected
 
-    def testSinglyLLDelete(self):
-        self.sLL.del_node(3)
-        self.assertEqual(self.sLL.size(), 4)
-        self.sLL.del_node(5)
-        self.assertEqual(self.sLL.size(), 3)
-        self.sLL.del_node(3)
-        self.assertEqual(self.sLL.size(), 3)
+    def test_delete(self, populated_doubly):
+        """Test node deletion"""
+        populated_doubly.del_node(3)
+        assert populated_doubly.size() == 4
+        populated_doubly.del_node(5)
+        assert populated_doubly.size() == 3
+        populated_doubly.del_node(3)  # Try deleting non-existent value
+        assert populated_doubly.size() == 3
 
-    def testSinglyLLRevInPlace(self):
-        self.sLL.rev_in_place()
-        self.assertEqual(self.sLL.head.data, 1)
-        cur = self.sLL.head
-        self.assertEqual(self.sLL.size(), 5)
-        while cur.next is not None:
-                cur = cur.next
-        self.assertEqual(cur.data, 5)
+    def test_reverse_in_place(self, populated_doubly):
+        """Test in-place reversal"""
+        populated_doubly.rev_in_place()
+        assert populated_doubly.head.data == 1
+        assert populated_doubly.size() == 5
+        assert self._get_last_node(populated_doubly).data == 5
 
-    def testSinglyLLSwapPairs(self):
-        self.assertEqual(sLinkedList().swap_pairs(), False)
-        self.sLL.insert_beginning(6)
-        self.assertEqual(self.sLL.swap_pairs(), True)
-        self.assertEqual(self.sLL.head.data, 5)
-        self.assertEqual(self.sLL.head.next.data, 6)
-        cur = self.sLL.head
-        while cur.next.next is not None:
-                cur = cur.next
-        self.assertEqual(cur.data, 1)
-        self.assertEqual(cur.next.data, 2)
-        self.assertEqual(self.sLL.head.data, 5)
+    def test_swap_pairs(self, populated_doubly):
+        """Test swapping adjacent pairs"""
+        populated_doubly.insert_beginning(6)  # Make even length
+        assert populated_doubly.swap_pairs()
+        assert populated_doubly.head.data == 5
+        assert populated_doubly.head.next.data == 6
+        # Check last pair
+        current = populated_doubly.head
+        while current.next.next:
+            current = current.next
+        assert current.data == 1
+        assert current.next.data == 2
 
-    def testDoublyLLInputFromListBeginning(self):
-        inp_list = [1,2,3,4,5]
-        l = dLinkedList(inp_list=inp_list, insertEnd=False)
-        self.assertEqual(l.size(), 5)
-        self.assertEqual(l.head.data, 5)
-        cur = l.head
-        while cur.next is not None:
-                cur = cur.next
-        self.assertEqual(cur.data, 1)
+    @staticmethod
+    def _get_last_node(ll):
+        """Helper to get last node of a linked list"""
+        current = ll.head
+        while current.next:
+            current = current.next
+        return current
 
-    def testDoublyLLInputFromListEnd(self):
-        inp_list = [1,2,3,4,5]
-        l = dLinkedList(inp_list=inp_list)
-        self.assertEqual(l.size(), 5)
-        self.assertEqual(l.head.data, 1)
-        cur = l.head
-        while cur.next is not None:
-                cur = cur.next
-        self.assertEqual(cur.data, 5)
+class TestCircularLinkedList:
+    @pytest.mark.parametrize("insert_at_end", [True, False])
+    def test_initialization_from_list(self, insert_at_end):
+        """Test initializing circular linked list from input list"""
+        ll = cLinkedList(inp_list=TEST_LIST, insertEnd=insert_at_end)
+        assert ll.size() == 5
+        if insert_at_end:
+            assert ll.head.data == 1
+            assert self._get_last_node(ll).data == 5
+        else:
+            assert ll.head.data == 5
+            assert self._get_last_node(ll).data == 1
 
-    def testDoublyLLInsertFromBeginning(self):
-        self.assertEqual(self.dLL.head.data,5)
-        self.assertEqual(self.dLL.size(), 5)
+    def test_insert_beginning(self, populated_circular):
+        """Test insertion at beginning"""
+        assert populated_circular.size() == 5
+        assert populated_circular.head.data == 5
 
-    def testDoublyLLInsertFromEnd(self):
-        l = dLinkedList()
+    def test_insert_end(self, empty_circular):
+        """Test insertion at end"""
         for i in range(5):
-            l.insert_end(i+1)
-        self.assertEqual(l.size(),5)
-        self.assertEqual(l.head.data, 1)
+            empty_circular.insert_end(i + 1)
+        assert empty_circular.size() == 5
+        assert empty_circular.head.data == 1
+        assert self._get_last_node(empty_circular).data == 5
 
-    def testDoublyLLEvenLength(self):
-        self.assertEqual(self.dLL.is_length_even(), False)
-        self.assertEqual(dLinkedList().is_length_even(), True)
+    @pytest.mark.parametrize("list_state,expected", [
+        ([], True),
+        ([1], False),
+        ([1, 2], True),
+        ([1, 2, 3], False)
+    ])
+    def test_even_length(self, empty_circular, list_state, expected):
+        """Test even length detection"""
+        for item in list_state:
+            empty_circular.insert_end(item)
+        assert empty_circular.is_length_even() == expected
 
-    def testDoublyLLCyclicity(self):
-        self.assertEqual(self.dLL.is_cyclic(), False)
-        self.assertEqual(self.dLL.cycle_length(), 0)
-        self.assertEqual(dLinkedList().cycle_length(), 0)
+    def test_cyclicity(self, populated_circular, empty_circular):
+        """Test cycle detection and length"""
+        assert populated_circular.is_cyclic()
+        assert populated_circular.cycle_length() == 5
+        assert empty_circular.cycle_length() == 0
 
-    def testDoublyLLNthElementFromEnd(self):
-        self.assertEqual(self.dLL.from_the_end(2), 2)
-        self.assertEqual(self.dLL.from_the_end(12), False)
+    @pytest.mark.parametrize("n,expected", [
+        (2, 2),
+        (1, 1),
+        (5, 5),
+        (10, False)
+    ])
+    def test_nth_from_end(self, populated_circular, n, expected):
+        """Test finding nth element from end"""
+        assert populated_circular.from_the_end(n) == expected
 
-    def testDoublyLLDelete(self):
-        self.dLL.del_node(3)
-        self.assertEqual(self.dLL.size(), 4)
-        self.dLL.del_node(5)
-        self.assertEqual(self.dLL.size(), 3)
-        self.dLL.del_node(3)
-        self.assertEqual(self.dLL.size(), 3)
+    def test_delete(self, populated_circular):
+        """Test node deletion"""
+        populated_circular.del_node(3)
+        assert populated_circular.size() == 4
+        populated_circular.del_node(5)
+        assert populated_circular.size() == 3
+        populated_circular.del_node(3)  # Try deleting non-existent value
+        assert populated_circular.size() == 3
 
-    def testDoublyLLRevInPlace(self):
-        self.dLL.rev_in_place()
-        self.assertEqual(self.dLL.head.data, 1)
-        cur = self.dLL.head
-        self.assertEqual(self.dLL.size(), 5)
-        while cur.next is not None:
-                cur = cur.next
-        self.assertEqual(cur.data, 5)
+    def test_reverse_in_place(self, populated_circular):
+        """Test in-place reversal"""
+        populated_circular.rev_in_place()
+        assert populated_circular.head.data == 1
+        assert populated_circular.size() == 5
+        assert self._get_last_node(populated_circular).data == 5
 
-    def testDoublyLLSwapPairs(self):
-        self.assertEqual(sLinkedList().swap_pairs(), False)
-        self.dLL.insert_beginning(6)
-        self.assertEqual(self.dLL.swap_pairs(), True)
-        self.assertEqual(self.dLL.head.data, 5)
-        self.assertEqual(self.dLL.head.next.data, 6)
-        cur = self.dLL.head
-        while cur.next.next is not None:
-                cur = cur.next
-        self.assertEqual(cur.data, 1)
-        self.assertEqual(cur.next.data, 2)
-        self.assertEqual(self.dLL.head.data, 5)
+    def test_swap_pairs(self, populated_circular):
+        """Test swapping adjacent pairs"""
+        populated_circular.insert_beginning(6)  # Make even length
+        assert populated_circular.swap_pairs()
+        assert populated_circular.head.data == 5
+        assert populated_circular.head.next.data == 6
+        # Check last pair
+        current = populated_circular.head
+        while current.next.next != populated_circular.head:
+            current = current.next
+        assert current.data == 1
+        assert current.next.data == 2
 
-    def testCircularlyLLInputFromListBeginning(self):
-        inp_list = [1,2,3,4,5]
-        l = cLinkedList(inp_list=inp_list, insertEnd=False)
-        self.assertEqual(l.size(), 5)
-        self.assertEqual(l.head.data, 5)
-        cur = l.head
-        while cur.next != l.head:
-                cur = cur.next
-        self.assertEqual(cur.data, 1)
-
-    def testCircularlyLLInputFromListEnd(self):
-        inp_list = [1,2,3,4,5]
-        l = cLinkedList(inp_list=inp_list)
-        self.assertEqual(l.size(), 5)
-        self.assertEqual(l.head.data, 1)
-        cur = l.head
-        while cur.next != l.head:
-                cur = cur.next
-        self.assertEqual(cur.data, 5)
-
-    def testCicularlyLLInsertFromBeginning(self):
-        self.assertEqual(self.cLL.head.data,5)
-        self.assertEqual(self.cLL.size(), 5)
-
-    def testCicularlyLLInsertFromEnd(self):
-        l = cLinkedList()
-        for i in range(5):
-            l.insert_end(i+1)
-        self.assertEqual(l.size(),5)
-        self.assertEqual(l.head.data, 1)
-
-    def testCicularlyLLEvenLength(self):
-        self.assertEqual(self.cLL.is_length_even(), False)
-        self.assertEqual(cLinkedList().is_length_even(), True)
-
-    def testCicularlyLLCyclicity(self):
-        self.assertEqual(self.cLL.is_cyclic(), True)
-        self.assertEqual(self.cLL.cycle_length(), 5)
-        self.assertEqual(cLinkedList().cycle_length(), 0)
-
-    def testCicularlyLLNthElementFromEnd(self):
-        self.assertEqual(self.cLL.from_the_end(2), 2)
-        self.assertEqual(self.cLL.from_the_end(10), False)
-
-    def testCicularlyLLDelete(self):
-        self.cLL.del_node(3)
-        self.assertEqual(self.cLL.size(), 4)
-        self.cLL.del_node(5)
-        self.assertEqual(self.cLL.size(), 3)
-        self.cLL.del_node(3)
-        self.assertEqual(self.cLL.size(), 3)
-
-    def testCircularlyLLRevInPlace(self):
-        self.cLL.rev_in_place()
-        self.assertEqual(self.cLL.head.data, 1)
-        cur = self.cLL.head
-        self.assertEqual(self.cLL.size(), 5)
-        while cur.next != self.cLL.head:
-                cur = cur.next
-        self.assertEqual(cur.data, 5)
-
-    def testCircularlyLLSwapPairs(self):
-        self.assertEqual(cLinkedList().swap_pairs(), False)
-        self.cLL.insert_beginning(6)
-        self.assertEqual(self.cLL.swap_pairs(), True)
-        self.assertEqual(self.cLL.head.data, 5)
-        self.assertEqual(self.cLL.head.next.data, 6)
-        cur = self.cLL.head
-        while cur.next.next != self.cLL.head:
-                cur = cur.next
-        self.assertEqual(cur.data, 1)
-        self.assertEqual(cur.next.data, 2)
-        self.assertEqual(self.sLL.head.data, 5)
-
-if __name__ == "__main__":
-    unittest.main()
+    @staticmethod
+    def _get_last_node(ll):
+        """Helper to get last node of a circular linked list"""
+        if not ll.head:
+            return None
+        current = ll.head
+        while current.next != ll.head:
+            current = current.next
+        return current

@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dat-struct-py"
+dynamic = ["version"]
+description = "Basic Data Structures and Operations Implemented in Python"
+readme = "README.md"
+authors = [
+    {name = "rachit-ranjan16", email = "rachit.ranjan93@gmail.com"}
+]
+license = {text = "GNU"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development",
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["data structures", "algorithms", "operations"]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/rachit-ranjan16/dat_struct_py"
+Repository = "https://github.com/rachit-ranjan16/dat_struct_py.git"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+]
+
+[tool.setuptools]
+packages = ["dat_struct_py"]
+
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = [
+    "dat_struct_py/tests",
+]
