@@ -15,7 +15,9 @@ Basic Data Structures and Operations Implemented in Python
 - Circularly Singly Linked List  
 - Stack using Linked List
 - Queue using Linked List
-- Tree (Binary Search Tree)
+- Binary Search Tree
+- Trie
+- Heap (MinHeap and MaxHeap)
 
 ### Operations Supported for Linked Lists
 
@@ -43,7 +45,7 @@ Basic Data Structures and Operations Implemented in Python
 - Peek the top element
 - Check balanced symbols
 - Filter out all adjacent elements from the input
-- Print the elements of the Queue
+- Print the elements of the Stack
 
 ### Operations Supported for Queues
 
@@ -51,6 +53,7 @@ Basic Data Structures and Operations Implemented in Python
 - Check whether the Queue is empty
 - Enqueue an element
 - Dequeue an element
+- Print the elements of the Queue
 
 ### Operations Supported for Binary Search Trees
 
@@ -73,6 +76,25 @@ Basic Data Structures and Operations Implemented in Python
   - Singly Linked List
   - Circularly Singly Linked List
 
+### Operations Supported for Tries
+
+- Create a trie by inserting strings
+- Insert a string into the trie
+- Look up a string to check if it exists in the trie
+- Prefix-based string operations
+
+### Operations Supported for Heaps
+
+- Create a heap (MinHeap or MaxHeap)
+  - From an array of elements
+  - By inserting elements one by one
+- Insert an element
+- Extract the top element (min for MinHeap, max for MaxHeap)
+- Get the top element without removing it
+- Check if the heap is empty
+- Get the size of the heap
+- Heapify an array
+
 ## Developer Tools
 
 - Full Fledged Vagrant Box in tools/DevelopDatStructPy
@@ -86,3 +108,9 @@ Basic Data Structures and Operations Implemented in Python
 - Execute `vagrant ssh` to login to the VM
 - Master Code will be present at `home/ubuntu/Development/Repos/`
 - Execute `source /home/ubuntu/Development/developEnv/bin/activate` to activate Python Virtual Environment
+
+## Project Structure
+
+- `dat_struct_py/`: Core implementation directory containing Python modules for data structures
+- `dat_struct_py/blocks/`: Contains the fundamental node structures used by data structures
+- `dat_struct_py/tests/`: Contains unit tests for each data structure implementation
